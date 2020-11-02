@@ -1,0 +1,22 @@
+{
+  "name": "hyeontube",
+  "version": "1.0.0",
+  "description": "Cloning Youtube wite VanilaJS and Nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keep-Going-HyeonSoo/HyeonTube.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Keep-Going-HyeonSoo/HyeonTube/issues"
+  },
+  "homepage": "https://github.com/Keep-Going-HyeonSoo/HyeonTube#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
