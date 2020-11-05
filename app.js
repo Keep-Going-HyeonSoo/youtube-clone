@@ -4,12 +4,9 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
 
+import userRouter from './router'
+
 const app = express()
-
-const PORT = 4000
-
-const handleListening = () =>
-  console.log(`Listening in ${PORT} port!`)
 
 const handleHome = (req, res) => {
   res.send('Hello from Home!')
@@ -25,7 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet())
 app.use(morgan('dev'))
 
+app.use('/user', userRouter)
+
 app.get('/', handleHome)
 app.get('/profile', handleProfile)
 
-app.listen(PORT, handleListening)
+export default app
