@@ -1,2 +1,18 @@
 # HyeonTube
-[HyeonTube] Cloning Youtube with Nodejs, mongoDB
+## HyeonTube
+Cloning Youtube with Nodejs, Express, mongoDB
+
+## Pages :
+
+- [ ] Home
+- [ ] Join
+- [ ] Login
+- [x] Search
+- [ ] User Detail
+- [ ] Edit Profile
+- [ ] Change Password
+- [ ] Upload
+- [ ] Video Detail
+- [ ] Edit Video
+
+
