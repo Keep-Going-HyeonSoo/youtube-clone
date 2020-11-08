@@ -1,9 +1,12 @@
 header.header
-  .header_column
+  .header_col
     a(href=routes.home)
       i.fab.fa-youtube.fa-3x
         span HyeonTube
-  .header_column
+  .header_col
+    form(action=routes.search, method='get')
+      input(type='text', placeholder='Searching by ...', name='term')
+  .header_col
     ul
       li
         a(href=routes.join) Join
