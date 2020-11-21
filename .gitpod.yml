@@ -4,3 +4,4 @@ image:
 tasks:
   - init: npm install
     command: zsh
+  - command: git config commit.template ./.git-commit-template
