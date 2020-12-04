@@ -1,4 +1,10 @@
 extends layouts/main 
 
 block content
-  p editVideo!
+  .form-container
+    form(action=`${routes.videos}${routes.editVideo}`, method='post')
+      input(type='text', placeholder='Title', name='title')
+      textarea(name='description', placeholder='Description')
+      input(type='submit', value='Update Video')
+    a.form-container__link.form-container__link--delete(href=`${routes.videos}${routes.deleteVideo}`) Delete Video
+    // to do : a 태그 링크가 /videos/:id/delete 로 되는 거 수정해야함
