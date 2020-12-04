@@ -5,8 +5,8 @@ export const search = (req, res) => {
   // console.log(req.query)
   const { query: { term: searchingBy } } = req // ES6
   // const searchingBy = req.query.term
-  res.render('search', { pageTitle: 'search', searchingBy }) // ES6
-  // res.render('search', { pageTitle: 'search', searchingBy: searchingBy })
+  res.render('search', { pageTitle: 'search', searchingBy, videos }) // ES6
+  // res.render('search', { pageTitle: 'search', searchingBy: searchingBy, videos: videos })
 }
 export const upload = (req, res) => res.render('upload', { pageTitle: 'upload' })
 export const videoDetail = (req, res) => res.render('videoDetail', { pageTitle: 'videoDetail' })
