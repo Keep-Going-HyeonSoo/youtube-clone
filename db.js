@@ -4,7 +4,7 @@ export const videos = [
     title: 'Video awesome',
     description: 'This is something I love',
     views: 24,
-    videoFile: 'https://archive.org/details/BigBuckBunny_124',
+    videoFile: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
     creator: {
       id: 121212,
       name: 'HyeonSoo Choi',
@@ -15,8 +15,8 @@ export const videos = [
     id: 1212121,
     title: 'Video super',
     description: 'This is something I want',
-    views: 24,
-    videoFile: 'https://archive.org/details/BigBuckBunny_124',
+    views: 16,
+    videoFile: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
     creator: {
       id: 121212,
       name: 'HyeonSoo Choi',
@@ -27,8 +27,8 @@ export const videos = [
     id: 55555,
     title: 'Video nice',
     description: 'This is something I like',
-    views: 24,
-    videoFile: 'https://archive.org/details/BigBuckBunny_124',
+    views: 78,
+    videoFile: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
     creator: {
       id: 121212,
       name: 'HyeonSoo Choi',
@@ -39,8 +39,8 @@ export const videos = [
     id: 11111,
     title: 'Video perfect',
     description: 'This is something I enjoy',
-    views: 24,
-    videoFile: 'https://archive.org/details/BigBuckBunny_124',
+    views: 45,
+    videoFile: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
     creator: {
       id: 121212,
       name: 'HyeonSoo Choi',

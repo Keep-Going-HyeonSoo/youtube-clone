@@ -1,9 +1,11 @@
-extends layouts/main 
+extends layouts/main
+include mixins/videoBlock
 
 block content
   .videos
     each item in videos
-      //- 문자열 삽입 : '=' or #{} 사용 
-      //- #{item.title} 
-      h1= item.title 
-      p= item.description
+      +videoBlock({
+        title: item.title,
+        views: item.views,
+        videoFile: item.videoFile
+      })
