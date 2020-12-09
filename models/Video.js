@@ -18,7 +18,13 @@ const VideoSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment'
+    }
+  ]
 })
 
 // mongoose.model() 메서드 : 스키마를 등록하는 메서드
