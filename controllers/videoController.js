@@ -1,9 +1,15 @@
-import { videos } from '../db_fake'
 import routes from '../routes'
+import Video from '../models/Video'
 
-export const home = (req, res) => {
-  console.log('res.locals.user', res.locals.user)
-  res.render('home', { pageTitle: 'Home', videos })
+// 비동기 처리 : async/await
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({})
+    res.render('home', { pageTitle: 'Home', videos })
+  } catch (error) {
+    console.log(error)
+    res.render('home', { pageTitle: 'Home', videos: [] }) // error 를 대비하여 videos 에는 빈 배열을 할당
+  }
 }
 export const search = (req, res) => {
   // console.log(req.query)
