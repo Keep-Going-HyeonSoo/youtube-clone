@@ -4,8 +4,8 @@ import Video from '../models/Video'
 // 비동기 처리 : async/await
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({})
-    res.render('home', { pageTitle: 'Home', videos })
+    const videos = await Video.find({}) // DB 에서 video 들을 받아옴
+    res.render('home', { pageTitle: 'Home', videos }) // home 화면에 video 목록 렌더링
   } catch (error) {
     console.log(error)
     res.render('home', { pageTitle: 'Home', videos: [] }) // error 를 대비하여 videos 에는 빈 배열을 할당
@@ -20,11 +20,20 @@ export const search = (req, res) => {
 }
 export const getUpload = (req, res) => res.render('upload', { pageTitle: 'upload' })
 
-export const postUpload = (req, res) => {
-  const { file, title, description } = req.body
-  // to do : generate random newVideoId
-  const newVideoId = 999
-  res.redirect(`${routes.videos}${routes.videoDetail(newVideoId)}`)
+export const postUpload = async (req, res) => {
+  const {
+    body: { title, description },
+    file: { path }
+  } = req
+  const newVideo = await Video.create({
+    fileUrl: path,
+    title,
+    description
+  })
+  console.log('req.body', req.body)
+  console.log('req.file', req.file)
+  console.log('newVideo', newVideo)
+  res.redirect(`${routes.videos}${routes.videoDetail(newVideo.id)}`)
 }
 
 export const videoDetail = (req, res) => {

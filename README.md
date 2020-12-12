@@ -1,7 +1,6 @@
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Keep-Going-HyeonSoo/HyeonTube)
 
-# HyeonTube
-## HyeonTube
+# youtube-clone
 Cloning Youtube with Nodejs, Express, mongoDB
 
 ## Pages :
