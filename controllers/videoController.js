@@ -36,9 +36,14 @@ export const postUpload = async (req, res) => {
   res.redirect(`${routes.videos}${routes.videoDetail(newVideo.id)}`)
 }
 
-export const videoDetail = (req, res) => {
+export const videoDetail = async (req, res) => {
   const { id } = req.params
-  res.render('videoDetail', { pageTitle: 'videoDetail', id })
+  try {
+    const video = await Video.findById(id)
+    res.render('videoDetail', { pageTitle: 'videoDetail', video })
+  } catch (error) {
+    res.redirect(routes.home) // error(잘못된 id) 발생 시 home 으로 redirect 시킴
+  }
 }
 export const editVideo = (req, res) => res.render('editVideo', { pageTitle: 'editVideo' })
 export const deleteVideo = (req, res) => res.render('deleteVideo', { pageTitle: 'deleteVideo' })
