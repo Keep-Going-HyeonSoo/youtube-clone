@@ -51,8 +51,7 @@ export const getEditVideo = async (req, res) => {
   const { params: { id } } = req
   try {
     const video = await Video.findById(id)
-    const { title, description } = video
-    res.render('editVideo', { pageTitle: `Edit ${title}`, video })
+    res.render('editVideo', { pageTitle: `Edit ${video.title}`, video })
   } catch (error) {
     res.redirect(routes.home)
   }
