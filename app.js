@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
   res.setHeader('Content-Security-Policy', "script-src 'self' https://archive.org")
   return next()
 })
-app.use('/uploads', express.static('uploads'))
+app.use('/uploads', express.static('uploads')) // 첫 번째 인자는 파일 경로가 아닌 프론트 경로에서의 접두부
 app.set('view engine', 'pug')
 app.use(cookieParser())
 app.use(bodyParser.json())

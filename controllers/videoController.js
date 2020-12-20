@@ -40,10 +40,35 @@ export const videoDetail = async (req, res) => {
   const { id } = req.params
   try {
     const video = await Video.findById(id)
-    res.render('videoDetail', { pageTitle: 'videoDetail', video })
+    res.render('videoDetail', { pageTitle: `${video.title}`, video })
   } catch (error) {
     res.redirect(routes.home) // error(잘못된 id) 발생 시 home 으로 redirect 시킴
   }
 }
-export const editVideo = (req, res) => res.render('editVideo', { pageTitle: 'editVideo' })
+
+// getEditVideo : video 수정 페이지를 렌더링하는 컨트롤러
+export const getEditVideo = async (req, res) => {
+  const { params: { id } } = req
+  try {
+    const video = await Video.findById(id)
+    const { title, description } = video
+    res.render('editVideo', { pageTitle: `Edit ${title}`, video })
+  } catch (error) {
+    res.redirect(routes.home)
+  }
+}
+
+// postEditVideo : video 수정 페이지에서 사용자가 form 에 입력한 수정 데이터를 처리
+export const postEditVideo = async (req, res) => {
+  const {
+    params: { id },
+    body: { title, description }
+  } = req
+  try {
+    await Video.findByIdAndUpdate(id, { title, description })
+    res.redirect(`${routes.videos}${routes.videoDetail(id)}`)
+  } catch (error) {
+    res.render('editVideo', { pageTitle: 'editVideo' })
+  }
+}
 export const deleteVideo = (req, res) => res.render('deleteVideo', { pageTitle: 'deleteVideo' })
