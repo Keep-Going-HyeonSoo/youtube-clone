@@ -1,6 +1,6 @@
 import routes from '../routes'
 import Video from '../models/Video'
-import fs from 'fs'
+import fs from 'fs' // file system 모듈
 
 // 비동기 처리 : async/await
 export const home = async (req, res) => {
@@ -75,9 +75,11 @@ export const deleteVideo = async (req, res) => {
   const { params: { id } } = req
   try {
     const video = await Video.findById(id)
+    // 서버에서 video 삭제
     fs.unlink(`${video.fileUrl}`, (err) => {
       console.log(err)
     })
+    // DB에서 video 삭제
     await Video.findByIdAndDelete(id)
   } catch (error) {
     console.log(error)
