@@ -1,5 +1,6 @@
 import routes from '../routes'
 import Video from '../models/Video'
+import fs from 'fs'
 
 // 비동기 처리 : async/await
 export const home = async (req, res) => {
@@ -40,7 +41,7 @@ export const videoDetail = async (req, res) => {
   const { id } = req.params
   try {
     const video = await Video.findById(id)
-    res.render('videoDetail', { pageTitle: `${video.title}`, video })
+    res.render('videoDetail', { pageTitle: video.title, video })
   } catch (error) {
     res.redirect(routes.home) // error(잘못된 id) 발생 시 home 으로 redirect 시킴
   }
@@ -70,4 +71,16 @@ export const postEditVideo = async (req, res) => {
     res.render('editVideo', { pageTitle: 'editVideo' })
   }
 }
-export const deleteVideo = (req, res) => res.render('deleteVideo', { pageTitle: 'deleteVideo' })
+export const deleteVideo = async (req, res) => {
+  const { params: { id } } = req
+  try {
+    const video = await Video.findById(id)
+    fs.unlink(`${video.fileUrl}`, (err) => {
+      console.log(err)
+    })
+    await Video.findByIdAndDelete(id)
+  } catch (error) {
+    console.log(error)
+  }
+  res.redirect(`${routes.home}`)
+}
