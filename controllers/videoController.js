@@ -5,20 +5,30 @@ import Video from '../models/Video'
 // 비동기 처리 : async/await
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}) // DB 에서 video 들을 받아옴
+    const videos = await Video.find({}).sort({ createdAt: '-1' }) // DB 에서 video 들을 받아오고, 내림차순('-1' 또는 'desc')으로 정렬 (최신videor가 위로 오게끔)
     res.render('home', { pageTitle: 'Home', videos }) // home 화면에 video 목록 렌더링
   } catch (error) {
     console.log(error)
     res.render('home', { pageTitle: 'Home', videos: [] }) // error 를 대비하여 videos 에는 빈 배열을 할당
   }
 }
-export const search = (req, res) => {
+export const search = async (req, res) => {
   // console.log(req.query)
   const { query: { term: searchingBy } } = req // ES6
   // const searchingBy = req.query.term
-  res.render('search', { pageTitle: 'search', searchingBy, videos }) // ES6
+  let videos = []
+  try {
+    videos = await Video.find({
+      title: { $regex: `${searchingBy}`, $options: 'i' }
+    })
+  } catch (error) {
+    console.log(error)
+  }
+
+  res.render('search', { pageTitle: `search ${searchingBy}`, searchingBy, videos }) // ES6
   // res.render('search', { pageTitle: 'search', searchingBy: searchingBy, videos: videos })
 }
+
 export const getUpload = (req, res) => res.render('upload', { pageTitle: 'upload' })
 
 export const postUpload = async (req, res) => {

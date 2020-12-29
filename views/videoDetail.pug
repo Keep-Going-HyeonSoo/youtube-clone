@@ -2,9 +2,15 @@ extends layouts/main
 
 block content
   .video__player
-    video(src=`/${video.fileUrl}`)
+    video(src=`/${video.fileUrl}`, controls=true)
   .video__info
     a(href=`${routes.videos}${routes.editVideo(video.id)}`) Edit video
     h5.video__title= video.title
     span.video__views= video.views
     p.video__description= video.description
+  .video__comments
+    //- comment 1개일때의 단수처리를 위해 if문 처리
+    if (video.comments.length === 1) 
+      p.video__comment-number 1 comment 
+    else
+      p.video__comment-number #{video.comments.length} comments
