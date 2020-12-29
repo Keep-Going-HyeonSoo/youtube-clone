@@ -1,6 +1,6 @@
+import fs from 'fs' // file system 모듈
 import routes from '../routes'
 import Video from '../models/Video'
-import fs from 'fs' // file system 모듈
 
 // 비동기 처리 : async/await
 export const home = async (req, res) => {
@@ -84,5 +84,6 @@ export const deleteVideo = async (req, res) => {
   } catch (error) {
     console.log(error)
   }
+
   res.redirect(`${routes.home}`)
 }
