@@ -12,4 +12,8 @@ const { PORT } = process.env
 
 const handleListening = () => console.log(`💙 Listening on PORT ${PORT}`)
 
+// console.log('process.env: ', process.env)
+// console.log('__dirname', __dirname)
+// console.log('__filename', __filename)
+
 app.listen(PORT, handleListening)

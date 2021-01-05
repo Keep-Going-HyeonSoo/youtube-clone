@@ -13,7 +13,7 @@ import userRouter from './routers/userRouter'
 const app = express()
 
 app.use(helmet())
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.setHeader('Content-Security-Policy', "script-src 'self' https://archive.org")
   return next()
 })
