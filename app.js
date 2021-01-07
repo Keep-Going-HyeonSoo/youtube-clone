@@ -18,6 +18,7 @@ app.use((req, res, next) => {
   return next()
 })
 app.use('/uploads', express.static('uploads')) // 첫 번째 인자는 파일 경로가 아닌 프론트 경로에서의 접두부
+app.use('/static', express.static('static'))
 app.set('view engine', 'pug')
 app.use(cookieParser())
 app.use(bodyParser.json())
