@@ -1,6 +1,7 @@
 const path = require('path')
 const autoprefixer = require('autoprefixer')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 // __dirname : /workspace/youtube-clone
 const ENTRY_FILE = path.resolve(__dirname, 'assets', 'js', 'main.js')
@@ -9,18 +10,32 @@ const MODE = process.env.WEBPACK_ENV // npm scripts 에서 분기처리
 
 const config = {
   mode: MODE,
-  entry: ENTRY_FILE,
+  entry: ['core-js/stable', ENTRY_FILE],
   output: {
     path: OUTPUT_DIR,
     filename: '[name].js' // entry 파일의 파일명이 그대로 설정된다.
   },
+  target: ['es5'],
   module: {
     rules: [
       {
         test: /\.(js)$/,
+        exclude: /(node_modules)/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              presets: [[
+                '@babel/env', {
+                  useBuiltIns: 'usage',
+                  corejs: 3,
+                  targets: {
+                    browsers: ['last 3 versions', 'ie >= 11'],
+                    node: 'current'
+                  }
+                }
+              ]]
+            }
           }
         ]
       },
@@ -53,6 +68,9 @@ const config = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css'
+    }),
+    new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: ['static']
     })
   ],
   devtool: 'cheap-module-source-map'
