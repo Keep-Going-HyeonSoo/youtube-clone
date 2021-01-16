@@ -1,0 +1,61 @@
+.header {
+  background-color: $red;
+  margin-bottom: 50px;
+  padding: 6px 12px;
+  .header__wrapper {
+    padding: 5px 0px;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+    align-items: center;
+    
+    .header__col {
+      i {
+        color: white;
+        font-size: 35px;
+      }
+      form {
+        text-align: center;
+
+        input {
+        width: 95%;
+        height: 25px;
+        padding: 7px 10px;
+        border-radius: 5px;
+        font-size: 20px;
+        color: $black;
+        font-weight: 400;
+        &::placeholder {
+          font-size: 16px;
+          font-weight: 300;
+          color: rgba(0, 0, 0, 0.4);
+        }
+        &:focus, &:active {
+           box-shadow: 0 0 0 2px lightgrey;
+        }
+      }
+      }
+      &:nth-child(3) {
+        padding-left: 10px;
+        justify-self: end;
+        width: 100%;
+      }
+      ul {
+        text-transform: uppercase;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        li {
+          width: fit-content;
+          justify-self: center;
+        }
+      }
+
+    }
+  }
+    
+}
