@@ -133,18 +133,3 @@ a {
 input {
   box-sizing: border-box;
 }
-
-input {
-  border: none;
-  box-sizing: border-box;
-  &:hover,
-  &:focus,
-  &:active {
-    outline: none;
-    box-shadow: 0 0 0 2px lightgrey;
-  }
-}
-
-button:hover {
-  opacity: 0.8;
-}

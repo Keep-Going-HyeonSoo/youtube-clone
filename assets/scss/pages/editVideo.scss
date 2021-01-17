@@ -1,0 +1,20 @@
+.form-container {
+  form{
+    .form-container-subheading {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: red;
+    cursor: pointer;
+  }
+} 
+

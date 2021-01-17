@@ -5,8 +5,14 @@
 // main
 @import './main.scss';
 
+//pages
+@import './pages/home.scss';
+@import './pages/videoDetail.scss';
+@import './pages/editVideo.scss';
+
 // partials
 @import './partials/header.scss';
 @import './partials/footer.scss';
 @import './partials/form.scss';
 @import './partials/socialLogin.scss';
+@import './partials/videoBlock.scss';

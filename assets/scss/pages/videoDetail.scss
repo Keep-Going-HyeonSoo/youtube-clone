@@ -1,0 +1,43 @@
+.video-detail__container {
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+  video {
+    width: 100%;
+  }
+  .video__info {
+    display: flex;
+    flex-direction: column;
+    button {
+      align-self: flex-end;
+      width: fit-content;
+      font-size: 16px;
+      border-radius: 3px;
+      padding: 5px 10px;
+      margin: 5px 0px 10px;
+    }
+    .video__title {
+      font-size: 25px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .video__views {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .video__description {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+  }
+  .video__comments{
+    margin-top: 80px;
+    .video__comments-number{
+      text-align: center;
+      font-size: 18px;
+    }
+  }
+  
+}

@@ -1,5 +1,6 @@
 html, body{
   min-height: 100vh;  // 모든 프로젝트에서 필수설정
+  min-width: 800px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -15,10 +16,37 @@ body{
 
 main {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 80px;
   max-width: 1400px;
   min-height: 70vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+}
+
+
+textarea {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-bottom: 25px;
+  resize: none;
+  border-radius: 5px;
+  border: none;
+}
+
+input,button {
+  border: none;
+  box-sizing: border-box;
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: 0.8;
+    outline: none;
+    box-shadow: 0 0 0 2px lightgrey;
+  }
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  width: 100%;
 }
