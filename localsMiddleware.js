@@ -1,19 +1,19 @@
-import routes from './routes'
 import multer from 'multer'
 import path from 'path'
+import routes from './routes'
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination(req, file, cb) {
     cb(null, 'uploads/videos/')
   },
-  filename: function (req, file, cb) {
+  filename(req, file, cb) {
     const extension = path.extname(file.originalname)
     cb(null, new Date().valueOf() + extension)
     // 파일이름이 중복될 수 있는 이슈(극히 드물긴함)가 있지만 일단은 타임스탬프로 파일명을 지정 ( ex: 1607850021872.mp4 )
   }
 })
 
-const multerVideo = multer({ storage: storage })
+const multerVideo = multer({ storage })
 // multerVideo : multer 인스턴스
 
 export const uploadVideo = multerVideo.single('videoFile')
@@ -25,7 +25,7 @@ export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = 'HyeonTube'
   res.locals.routes = routes
   res.locals.user = {
-    isAuthenticated: true,
+    isAuthenticated: false,
     id: 24
   }
   next()

@@ -1,0 +1,19 @@
+.footer {
+  width: 100%;
+  text-align: center;
+  background-color: #e0d9d9;
+  border-top: 3px solid rgba(0, 0, 0, 0.1);
+  margin-top: auto; // margin top을 설정해서 footer 가 맨 밑으로 고정되게 함
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .footer__icon{
+    color: rgba($color: #696666, $alpha: 0.7);
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .footer_text {
+    text-transform: uppercase;
+  }
+}

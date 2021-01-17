@@ -122,9 +122,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 a {
   all: unset;
   cursor: pointer;
+  color: inherit;
 }
 
 *,
@@ -135,8 +137,14 @@ input {
 input {
   border: none;
   box-sizing: border-box;
+  &:hover,
   &:focus,
   &:active {
     outline: none;
+    box-shadow: 0 0 0 2px lightgrey;
   }
+}
+
+button:hover {
+  opacity: 0.8;
 }

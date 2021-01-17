@@ -1,4 +1,12 @@
+// config
 @import './config/_variables.scss';
 @import './config/reset.scss';
+
+// main
 @import './main.scss';
+
+// partials
 @import './partials/header.scss';
+@import './partials/footer.scss';
+@import './partials/form.scss';
+@import './partials/socialLogin.scss';
