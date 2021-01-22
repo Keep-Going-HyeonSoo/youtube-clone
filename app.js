@@ -4,7 +4,11 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
 
+import session from 'express-session'
+import passport from 'passport'
+import './passport' // passport config 파일
 import routes from './routes'
+
 import { localsMiddleware } from './localsMiddleware'
 import globalRouter from './routers/globalRouter'
 import videoRouter from './routers/videoRouter'
@@ -24,6 +28,22 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('dev'))
+
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: false
+  })
+)
+
+app.use(passport.initialize())
+app.use(passport.session())
+app.use((req, res, next) => {
+  console.log('req.session', req.session)
+  next()
+})
+
 app.use(localsMiddleware)
 
 app.use(routes.home, globalRouter) // '/'

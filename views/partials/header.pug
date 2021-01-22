@@ -8,7 +8,7 @@ header.header
       form(action=routes.search, method='get')
         input(type='text', placeholder='검색', name='term')
     .header__col
-      if !user.isAuthenticated
+      if !user
         ul
           li
             a(href=routes.join) Join

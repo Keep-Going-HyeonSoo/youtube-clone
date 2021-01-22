@@ -24,9 +24,8 @@ export const uploadVideo = multerVideo.single('videoFile')
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = 'HyeonTube'
   res.locals.routes = routes
-  res.locals.user = {
-    isAuthenticated: false,
-    id: 24
-  }
+  res.locals.user = req.user || null
+  console.log('req.user', req.user)
+  console.log('res.locals.user', res.locals.user)
   next()
 }
