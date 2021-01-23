@@ -7,7 +7,8 @@ export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: '-1' }) // DB 에서 video 들을 받아오고, 내림차순('-1' 또는 'desc')으로 정렬 (최신videor가 위로 오게끔)
     res.render('home', { pageTitle: 'Home', videos }) // home 화면에 video 목록 렌더링
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error)
     res.render('home', { pageTitle: 'Home', videos: [] }) // error 를 대비하여 videos 에는 빈 배열을 할당
   }
@@ -21,7 +22,8 @@ export const search = async (req, res) => {
     videos = await Video.find({
       title: { $regex: `${searchingBy}`, $options: 'i' }
     })
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error)
   }
 
@@ -52,7 +54,8 @@ export const videoDetail = async (req, res) => {
   try {
     const video = await Video.findById(id)
     res.render('videoDetail', { pageTitle: video.title, video })
-  } catch (error) {
+  }
+  catch (error) {
     res.redirect(routes.home) // error(잘못된 id) 발생 시 home 으로 redirect 시킴
   }
 }
@@ -63,7 +66,8 @@ export const getEditVideo = async (req, res) => {
   try {
     const video = await Video.findById(id)
     res.render('editVideo', { pageTitle: `Edit ${video.title}`, video })
-  } catch (error) {
+  }
+  catch (error) {
     res.redirect(routes.home)
   }
 }
@@ -77,7 +81,8 @@ export const postEditVideo = async (req, res) => {
   try {
     await Video.findByIdAndUpdate(id, { title, description })
     res.redirect(`${routes.videos}${routes.videoDetail(id)}`)
-  } catch (error) {
+  }
+  catch (error) {
     res.render('editVideo', { pageTitle: 'editVideo' })
   }
 }
@@ -91,7 +96,8 @@ export const deleteVideo = async (req, res) => {
     })
     // DB에서 video 삭제
     await Video.findByIdAndDelete(id)
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error)
   }
 

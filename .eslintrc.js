@@ -16,6 +16,7 @@ module.exports = {
     // 0 false(off), 1 warn, 2 error
     semi: ['error', 'never'],
     'no-console': 'off',
-    'comma-dangle': 0
+    'comma-dangle': 0,
+    'brace-style': [2, 'stroustrup', { allowSingleLine: true }]
   }
 }

@@ -11,11 +11,12 @@ export const postJoin = async (req, res, next) => {
       name, email, password, password2
     }
   } = req // const password = req.body.password
+
   if (password !== password2) {
     res.status(400)
     res.render('join', { pageTitle: 'join' })
-  } else {
-    // to do : register user
+  }
+  else { // register user
     try {
       const user = await new User({
         name,
@@ -23,12 +24,14 @@ export const postJoin = async (req, res, next) => {
       })
       await User.register(user, password)
       next()
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error)
       res.redirect(routes.home)
     }
   }
 }
+
 export const getLogin = (req, res) => res.render('login', { pageTitle: 'login' })
 
 export const postLogin = passport.authenticate('local', {

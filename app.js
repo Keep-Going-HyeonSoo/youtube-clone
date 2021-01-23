@@ -6,7 +6,7 @@ import helmet from 'helmet'
 
 import session from 'express-session'
 import passport from 'passport'
-import './passport' // passport config 파일
+import './passport' // passport config 파일 ( LocalStrategy, serialize, deserialize )
 import routes from './routes'
 
 import { localsMiddleware } from './localsMiddleware'

@@ -1,5 +1,4 @@
-import dotenv from 'dotenv'
-
+import './dotenv' // .env 환경변수 불러오는 파일 : 제일 위에 위치해야함
 import './db'
 import app from './app'
 
@@ -8,7 +7,7 @@ import './models/Video'
 import './models/Comment'
 import './models/User'
 
-dotenv.config()
+// dotenv.config() -> 이미 ./db.js 에서 dotenv 실행됨
 
 const { PORT } = process.env
 
