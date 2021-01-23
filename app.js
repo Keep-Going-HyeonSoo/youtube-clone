@@ -3,18 +3,22 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
-
+import mongoose from 'mongoose'
 import session from 'express-session'
+import connectMongo from 'connect-mongo'
 import passport from 'passport'
 import './passport' // passport config 파일 ( LocalStrategy, serialize, deserialize )
+
 import routes from './routes'
 
-import { localsMiddleware } from './localsMiddleware'
+import { localsMiddleware } from './middleware'
 import globalRouter from './routers/globalRouter'
 import videoRouter from './routers/videoRouter'
 import userRouter from './routers/userRouter'
 
 const app = express()
+
+const MongoStore = connectMongo(session)
 
 app.use(helmet())
 app.use((req, res, next) => {
@@ -33,16 +37,17 @@ app.use(
   session({
     secret: process.env.COOKIE_SECRET,
     resave: true,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 )
 
 app.use(passport.initialize())
 app.use(passport.session())
-app.use((req, res, next) => {
-  console.log('req.session', req.session)
-  next()
-})
+// app.use((req, res, next) => {
+//   console.log('req.session', req.session)
+//   next()
+// })
 
 app.use(localsMiddleware)
 

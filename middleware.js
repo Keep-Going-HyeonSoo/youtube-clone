@@ -16,16 +16,35 @@ const storage = multer.diskStorage({
 const multerVideo = multer({ storage })
 // multerVideo : multer 인스턴스
 
+// uploadVideo 미들웨어
 export const uploadVideo = multerVideo.single('videoFile')
 // uploadVideo 미들웨어는 multer 인스턴스를 통해
 // form 에서 'videoFile' 이라는 필드의 파일을 1개만 받아서
 // req.file 에 파일의 정보를 저장한다.
 
+// localsMiddleware 미들웨어
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = 'HyeonTube'
   res.locals.routes = routes
   res.locals.user = req.user || null
-  console.log('req.user', req.user)
-  console.log('res.locals.user', res.locals.user)
+  // console.log('req.user', req.user)
+  // console.log('res.locals.user', res.locals.user)
   next()
+}
+
+/* onlyPublic 미들웨어 : 비 로그인 사용자에게만 허용해주는 route protection 미들웨어 ( 로그인 유저는 home 으로 리다이렉트)
+e.g ) join, login 등등 */
+export const onlyPublic = (req, res, next) => {
+  if (!req.user) {
+    next()
+  }
+  else res.redirect(routes.home)
+}
+
+// onlyPrivate 미들웨어 : 로그인 사용자에게만 허용해주는 route protection 미들웨어
+export const onlyPrivate = (req, res, next) => {
+  if (req.user) {
+    next()
+  }
+  else res.redirect(routes.home)
 }
