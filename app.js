@@ -42,6 +42,7 @@ app.use(
   })
 )
 
+// passport 미들웨어는 express sesson 미들웨어 아래에 위치
 app.use(passport.initialize())
 app.use(passport.session())
 // app.use((req, res, next) => {

@@ -22,6 +22,11 @@ const VIDEO_DETAIL = '/:id' // /videos/123
 const EDIT_VIDEO = '/:id/edit' // /videos/123/edit
 const DELETE_VIDEO = '/:id/delete'
 
+// Github Login
+
+const GITHUB_LOGIN = '/auth/github'
+const GITHUB_LOGIN_CB = '/auth/github/callback'
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -48,7 +53,9 @@ const routes = {
   deleteVideo: (id) => {
     if (id) return `/${id}/delete`
     return DELETE_VIDEO
-  }
+  },
+  githubLogin: GITHUB_LOGIN,
+  githubLoginCB: GITHUB_LOGIN_CB
 }
 
 export default routes

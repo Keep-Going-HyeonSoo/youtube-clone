@@ -40,12 +40,7 @@ export const postLogin = passport.authenticate('local', {
 })
 
 export const logout = (req, res) => {
-  // to do : Process user logout
-  /* res.locals 로 user의 인증상태를 변경할려고 했는데 이 방법으로는 안됨
-  console.log('res.locals.user', res.locals.user)
-  res.locals.user.isAuthenticated = false
-  console.log('res.locals.user', res.locals.user)
-  */
+  req.logout()
   res.redirect(routes.home)
 }
 export const editProfile = (req, res) => res.render('editProfile', { pageTitle: 'editProfile' })
