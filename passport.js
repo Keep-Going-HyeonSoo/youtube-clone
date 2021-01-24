@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 /* eslint-disable no-underscore-dangle */
 import passport from 'passport'
 import passportGithub2 from 'passport-github2'
@@ -20,8 +19,8 @@ passport.use(
   // 사용자가 app 의 github API 사용을 승인 후, github 에서 app 으로 넘어오는 사용자 데이터
   async (accessToken, refreshToken, profile, done) => {
     const {
-      login, avatar_url, id
-    } = profile._json
+      login, avatar_url: avatarUrl, id
+    } = profile._json // const avatarUrl = profile._json.avatar_url
     const email = profile.emails[0].value
     // login: 'Keep-Going-HyeonSoo' ( name 으로 사용할 것)
     // id: 48885608 ( github 고유 식별자인듯)
@@ -44,7 +43,7 @@ passport.use(
         email,
         login,
         githubId: id,
-        avatarUrl: avatar_url
+        avatarUrl
       })
       return done(null, newUser)
     }
