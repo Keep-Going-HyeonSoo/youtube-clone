@@ -44,12 +44,27 @@ export const logout = (req, res) => {
   res.redirect(routes.home)
 }
 
+// userDetail view 를 보여주는 방식 1️⃣ : /me
+// 현재 접속중인 유저(req.user) 값을 사용
 export const getMe = (req, res) => {
   res.render('userDetail', { pageTitle: 'userDetail', user: req.user })
   // view 에 넘겨주는 user (req.user) 와 middleware.js 에서 view 로 넘겨주는 loggedUser (req.user) 는 같은 값이다.
 }
 
-// export const userDetail = (req, res) => res.render('userDetail', { pageTitle: 'userDetail' })
+// userDetail view 를 보여주는 방식 2️⃣ : /users/:id
+// '/users/:id' 라우터를 사용해서 params 로 들어오는 id 값을 바탕으로 DB에서 검색
+export const userDetail = async (req, res) => {
+  const { params: { id } } = req
+  try {
+    const user = await User.findById(id)
+    console.log(user)
+    res.render('userDetail', { pageTitle: 'userDetail', user })
+  }
+  catch (error) {
+    console.log(error)
+    res.redirect(routes.home)
+  }
+}
 
 export const editProfile = (req, res) => res.render('editProfile', { pageTitle: 'editProfile' })
 export const changePassword = (req, res) => res.render('changePassword', { pageTitle: 'changePassword' })
