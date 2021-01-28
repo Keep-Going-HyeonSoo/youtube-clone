@@ -8,7 +8,7 @@ header.header
       form(action=routes.search, method='get')
         input(type='text', placeholder='검색', name='term')
     .header__col
-      if !user
+      if !loggedUser
         ul
           li
             a(href=routes.join) Join
@@ -19,6 +19,6 @@ header.header
           li
             a(href=`${routes.videos}${routes.upload}`) Upload
           li
-            a(href=`${routes.users}${routes.userDetail(user.id)}`) Profile
+            a(href=routes.me) Profile
           li
             a(href=routes.logout) Logout

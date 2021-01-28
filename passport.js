@@ -34,6 +34,8 @@ passport.use(
       // 해당 email 의 사용자는 로컬로 로그인하던, github 로 로그인하던 같은 계정으로 로그인하게됨
       if (user) {
         user.githubId = id
+        user.avatarUrl = avatarUrl
+        user.name = login
         user.save()
         return done(null, user)
       }
@@ -41,7 +43,7 @@ passport.use(
       // else : 신규 유저 ( DB 에 해당 email 유저가 없음 )
       const newUser = await User.create({
         email,
-        login,
+        name: login,
         githubId: id,
         avatarUrl
       })

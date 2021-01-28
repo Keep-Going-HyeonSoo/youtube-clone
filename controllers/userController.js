@@ -43,6 +43,13 @@ export const logout = (req, res) => {
   req.logout()
   res.redirect(routes.home)
 }
+
+export const getMe = (req, res) => {
+  res.render('userDetail', { pageTitle: 'userDetail', user: req.user })
+  // view 에 넘겨주는 user (req.user) 와 middleware.js 에서 view 로 넘겨주는 loggedUser (req.user) 는 같은 값이다.
+}
+
+// export const userDetail = (req, res) => res.render('userDetail', { pageTitle: 'userDetail' })
+
 export const editProfile = (req, res) => res.render('editProfile', { pageTitle: 'editProfile' })
 export const changePassword = (req, res) => res.render('changePassword', { pageTitle: 'changePassword' })
-export const userDetail = (req, res) => res.render('userDetail', { pageTitle: 'userDetail' })
