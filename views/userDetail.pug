@@ -3,6 +3,5 @@ extends layouts/main
 block content
   .user-profile
     .user-profile__header
-      if user.githubId
-        img.avatar(src=user.avatarUrl)
-        h4.profile__username=user.name
+      img.avatar(src=user.avatarUrl)
+      h4.profile__username=user.name

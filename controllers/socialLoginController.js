@@ -27,7 +27,7 @@ export const githubStrategyCallback = async (accessToken, refreshToken, profile,
       user.githubId = id
       user.avatarUrl = avatarUrl
       user.name = login
-      user.save()
+      await user.save()
       return done(null, user)
     }
 
@@ -57,7 +57,34 @@ export const facebookLogin = passport.authenticate('facebook', { scope: ['email'
 
 // 사용자가 app 의 facebook API 사용을 승인 후, facebook 에서 app 으로 넘어오는 사용자 데이터
 export const facebookStrategyCallback = async (accessToken, refreshToken, profile, done) => {
-  console.log(accessToken, refreshToken, profile, done)
+  const { _json: { id, name, email } } = profile
+
+  try {
+    const user = await User.findOne({ email })
+    console.log(user)
+
+    // 같은 이메일로 가입한 유저정보가 존재할때
+    if (user) {
+      user.facebookId = id
+      user.avatarUrl = `https://graph.facebook.com/${id}/picture?type=large`
+      await user.save() // DB에 저장
+      return done(null, user) // req.user 로 넘겨주기 ( serializeUser )
+    }
+
+    // 신규 사용자
+    const newUser = await User.create({
+      name,
+      email,
+      avatarUrl: `https://graph.facebook.com/${id}/picture?type=large`,
+      facebookId: id
+
+    })
+    return done(null, newUser)
+  }
+  catch (err) {
+    console.log(err)
+    return done(err)
+  }
 }
 
 export const facebookLoginMiddleware = passport.authenticate('facebook', { failureRedirect: '/login' })

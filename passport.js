@@ -29,6 +29,7 @@ passport.use(
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: 'https://3000-ff35f1ec-99c8-49dc-8780-d2093bd0b279.ws-us03.gitpod.io/auth/facebook/callback',
+    scope: ['public_profile', 'email'],
     profileFields: ['id', 'displayName', 'photos', 'email']
   },
   facebookStrategyCallback)
