@@ -6,7 +6,8 @@ import {
 import { home, search } from '../controllers/videoController'
 import { onlyPublic, onlyPrivate } from '../middleware'
 import {
-  githubLogin, githubLoginMiddleware, githubLoginSuccess
+  githubLogin, githubLoginMiddleware, githubLoginSuccess,
+  facebookLogin, facebookLoginMiddleware, facebookLoginSuccess
 } from '../controllers/socialLoginController'
 
 const globalRouter = express.Router() // '/'
@@ -25,5 +26,10 @@ globalRouter.get(routes.me, getMe) // userDetail
 
 globalRouter.get(routes.githubLogin, githubLogin)
 globalRouter.get(routes.githubLoginCB, githubLoginMiddleware, githubLoginSuccess)
+
+// facebook login
+
+globalRouter.get(routes.facebookLogin, facebookLogin)
+globalRouter.get(routes.facebookLoginCB, facebookLoginMiddleware, facebookLoginSuccess)
 
 export default globalRouter

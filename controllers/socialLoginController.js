@@ -1,6 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 import passport from 'passport'
 import routes from '../routes'
 import User from '../models/User'
+
+// github login
 
 export const githubLogin = passport.authenticate('github', { scope: ['user:email'] })
 
@@ -45,5 +48,20 @@ export const githubStrategyCallback = async (accessToken, refreshToken, profile,
 export const githubLoginMiddleware = passport.authenticate('github', { failureRedirect: '/login' })
 
 export const githubLoginSuccess = (req, res) => {
+  res.redirect(routes.home)
+}
+
+// facebook login
+
+export const facebookLogin = passport.authenticate('facebook')
+
+// 사용자가 app 의 facebook API 사용을 승인 후, facebook 에서 app 으로 넘어오는 사용자 데이터
+export const facebookStrategyCallback = async (accessToken, refreshToken, profile, done) => {
+  console.log(accessToken, refreshToken, profile, done)
+}
+
+export const facebookLoginMiddleware = passport.authenticate('facebook', { failureRedirect: '/login' })
+
+export const facebookLoginSuccess = (req, res) => {
   res.redirect(routes.home)
 }
