@@ -53,7 +53,7 @@ export const githubLoginSuccess = (req, res) => {
 
 // facebook login
 
-export const facebookLogin = passport.authenticate('facebook')
+export const facebookLogin = passport.authenticate('facebook', { scope: ['email'] })
 
 // 사용자가 app 의 facebook API 사용을 승인 후, facebook 에서 app 으로 넘어오는 사용자 데이터
 export const facebookStrategyCallback = async (accessToken, refreshToken, profile, done) => {
