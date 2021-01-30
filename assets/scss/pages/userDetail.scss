@@ -1,0 +1,32 @@
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+
+  border: 2px solid #bbb2b2;
+  border-radius: 20px;
+  padding: 40px 40px 60px;
+  
+  .user-profile__header {
+    display: flex;
+    flex-direction: column;
+
+    .profile__username {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 20px 0px
+    }
+  }
+
+  .user-profile__btns {
+    display: flex;
+    flex-direction: column;
+
+    a:not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+  }
+  
+}

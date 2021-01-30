@@ -59,8 +59,6 @@ export const facebookLogin = passport.authenticate('facebook', { scope: ['email'
 export const facebookStrategyCallback = async (accessToken, refreshToken, profile, done) => {
   const { _json: { id, name, email } } = profile
 
-  console.dir(profile._json)
-
   try {
     const user = await User.findOne({ email })
     console.log(user)
