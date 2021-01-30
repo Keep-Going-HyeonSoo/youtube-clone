@@ -59,6 +59,8 @@ export const facebookLogin = passport.authenticate('facebook', { scope: ['email'
 export const facebookStrategyCallback = async (accessToken, refreshToken, profile, done) => {
   const { _json: { id, name, email } } = profile
 
+  console.dir(profile._json)
+
   try {
     const user = await User.findOne({ email })
     console.log(user)
@@ -66,7 +68,7 @@ export const facebookStrategyCallback = async (accessToken, refreshToken, profil
     // 같은 이메일로 가입한 유저정보가 존재할때
     if (user) {
       user.facebookId = id
-      user.avatarUrl = `https://graph.facebook.com/${id}/picture?type=large`
+      user.avatarUrl = `https://graph.facebook.com/${id}/picture?type=large&access_token=${accessToken}`
       await user.save() // DB에 저장
       return done(null, user) // req.user 로 넘겨주기 ( serializeUser )
     }
@@ -75,9 +77,8 @@ export const facebookStrategyCallback = async (accessToken, refreshToken, profil
     const newUser = await User.create({
       name,
       email,
-      avatarUrl: `https://graph.facebook.com/${id}/picture?type=large`,
+      avatarUrl: `https://graph.facebook.com/${id}/picture?type=large&access_token=${accessToken}`,
       facebookId: id
-
     })
     return done(null, newUser)
   }
