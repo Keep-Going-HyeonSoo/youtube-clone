@@ -57,8 +57,8 @@ export const userDetail = async (req, res) => {
   const { params: { id } } = req
   try {
     const user = await User.findById(id)
-    console.log(user)
-    res.render('userDetail', { pageTitle: 'userDetail', user })
+    console.log('user', user)
+    res.render('userDetail', { pageTitle: 'userDetail', user }) // getMe 와는 다르게 이 user 는 DB에서 찾은 user 임.
   }
   catch (error) {
     console.log(error)

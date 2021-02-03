@@ -19,7 +19,20 @@ export const githubStrategyCallback = async (accessToken, refreshToken, profile,
   try {
     // 기존 DB 에서 github email 과 동일한 email 이 있는지 찾음
     // 즉, 이미 계정이 존재하는 사용자인지 판단
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email }) // 앞에 await 을 꼭 붙혀줘야함
+
+    /*
+    console.dir('User', User) // Model { User }
+    console.log('user', user)
+      {
+        _id: 600aafe84e10292cccb96cd3,
+        name: 'Keep-Going-HyeonSoo',
+        email: 'chs98105@gmail.com',
+        __v: 0,
+        githubId: 48885608,
+        avatarUrl: 'https://avatars.githubusercontent.com/u/48885608?v=4'
+      }
+    */
 
     // email 계정이 기존에 존재할 경우에는 githubId 만 최신화시켜주고 save
     // 해당 email 의 사용자는 로컬로 로그인하던, github 로 로그인하던 같은 계정으로 로그인하게됨
@@ -28,7 +41,7 @@ export const githubStrategyCallback = async (accessToken, refreshToken, profile,
       user.avatarUrl = avatarUrl
       user.name = login
       await user.save()
-      return done(null, user)
+      return done(null, user) // req.user 에 user 객체의 프로퍼티가 들어가게 됨
     }
 
     // else : 신규 유저 ( DB 에 해당 email 유저가 없음 )
@@ -38,7 +51,7 @@ export const githubStrategyCallback = async (accessToken, refreshToken, profile,
       githubId: id,
       avatarUrl
     })
-    return done(null, newUser)
+    return done(null, newUser) // req.user 에 newUser 의 프로퍼티가 들어가게됨
   }
   catch (error) {
     return done(error)
@@ -61,7 +74,7 @@ export const facebookStrategyCallback = async (accessToken, refreshToken, profil
 
   try {
     const user = await User.findOne({ email })
-    console.log(user)
+    console.log('user', user)
 
     // 같은 이메일로 가입한 유저정보가 존재할때
     if (user) {

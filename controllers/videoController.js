@@ -6,6 +6,7 @@ import Video from '../models/Video'
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: '-1' }) // DB 에서 video 들을 받아오고, 내림차순('-1' 또는 'desc')으로 정렬 (최신videor가 위로 오게끔)
+
     res.render('home', { pageTitle: 'Home', videos }) // home 화면에 video 목록 렌더링
   }
   catch (error) {
@@ -36,7 +37,7 @@ export const getUpload = (req, res) => res.render('upload', { pageTitle: 'upload
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path }
+    file: { path } // req.file : multer 미들웨어에 의해 생성됨
   } = req
   const newVideo = await Video.create({
     fileUrl: path,
@@ -53,6 +54,7 @@ export const videoDetail = async (req, res) => {
   const { id } = req.params
   try {
     const video = await Video.findById(id)
+    console.log('video', video)
     res.render('videoDetail', { pageTitle: video.title, video })
   }
   catch (error) {

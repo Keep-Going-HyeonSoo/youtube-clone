@@ -28,7 +28,6 @@ export const localsMiddleware = (req, res, next) => {
   res.locals.routes = routes
   res.locals.loggedUser = req.user || null
   // console.log('req.user', req.user)
-  // console.log('res.locals.user', res.locals.user)
   next()
 }
 
