@@ -59,3 +59,24 @@ button {
   color: white;
   width: 100%;
 }
+
+label {
+  margin-top: 10px;
+  height: 80px;
+
+  input {
+    width: 100%;
+  }
+}
+
+input[readOnly] {
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: initial;
+    outline: initial;
+    box-shadow: initial;
+  }
+  background-color: #bab7b6;
+  pointer-events: none;
+}

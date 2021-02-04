@@ -22,7 +22,7 @@ export const postJoin = async (req, res, next) => {
         name,
         email
       })
-      await User.register(user, password)
+      await User.register(user, password) // passport-local
       next()
     }
     catch (error) {
@@ -66,5 +66,23 @@ export const userDetail = async (req, res) => {
   }
 }
 
-export const editProfile = (req, res) => res.render('editProfile', { pageTitle: 'editProfile' })
+export const getEditProfile = (req, res) => res.render('editProfile', { pageTitle: 'editProfile' })
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name }, file
+  } = req
+
+  const path = file ? file.path : req.user.avatarUrl
+
+  try {
+    await User.findByIdAndUpdate(req.user.id, { name, avatarUrl: path })
+    res.redirect(routes.me)
+  }
+  catch (err) {
+    console.log(err)
+    res.redirect(routes.home)
+  }
+}
+
 export const changePassword = (req, res) => res.render('changePassword', { pageTitle: 'changePassword' })

@@ -2,13 +2,22 @@ extends layouts/main
 
 block content
 	.form-container
-		form(action=routes.editProfile, method='post')
+		form(action=`${routes.users}${routes.editProfile}`, method='post', enctype='multipart/form-data') 
 			label(for='avatar') 
 				h4.form-container-subheading
 					| Select avatar
-			input(type='file', id='avatar', name='avatar')
-			input(type='text', name='name', placeholder='Enter a name')
-			input(type='email', name='email', placeholder='Enter an email')
+				input(type='file', id='avatar', name='avatar', accept='image/*')
+
+			label(for='name') 	
+				h4.form-container-subheading
+						| Name
+				input(type='text', id='name', name='name', placeholder='Enter a name', value=loggedUser.name)
+			
+			label(for='email') 
+				h4.form-container-subheading
+						| Email
+				input(type='email', id='email', name='email', placeholder='Enter an email', value=loggedUser.email, readOnly)
+
 			input(type='submit', value='Update Profile')
 		
 		a.form-container__link(href=`${routes.users}${routes.changePassword}`)

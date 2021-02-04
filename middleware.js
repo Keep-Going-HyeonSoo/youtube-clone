@@ -2,7 +2,12 @@ import multer from 'multer'
 import path from 'path'
 import routes from './routes'
 
-const storage = multer.diskStorage({
+// multer 로 실제 파일을 DB에 저장시킨 후, 도큐먼트에는 파일자체가 아닌
+// 파일 path 만을 저장시킬 것이다.
+
+// ************** video multer ******************
+
+const videoStorage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/videos/')
   },
@@ -13,7 +18,7 @@ const storage = multer.diskStorage({
   }
 })
 
-const multerVideo = multer({ storage })
+const multerVideo = multer({ storage: videoStorage })
 // multerVideo : multer 인스턴스
 
 // uploadVideo 미들웨어
@@ -22,7 +27,23 @@ export const uploadVideo = multerVideo.single('videoFile')
 // form 에서 'videoFile' 이라는 필드의 파일을 1개만 받아서
 // req.file 에 파일의 정보를 저장한다.
 
-// localsMiddleware 미들웨어
+// ************** Avatar multer ******************
+
+const avatarStorage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, 'uploads/avatar/')
+  },
+  filename(req, file, cb) {
+    const extension = path.extname(file.originalname)
+    cb(null, new Date().valueOf() + extension)
+    // 파일이름이 중복될 수 있는 이슈(극히 드물긴함)가 있지만 일단은 타임스탬프로 파일명을 지정 ( ex: 1607850021872.mp4 )
+  }
+})
+
+const multerAvatar = multer({ storage: avatarStorage })
+export const uploadAvatar = multerAvatar.single('avatar')
+
+// ************* localsMiddleware 미들웨어 ***************
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = 'HyeonTube'
   res.locals.routes = routes
