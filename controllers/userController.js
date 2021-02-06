@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import passport from 'passport'
 import routes from '../routes'
 import User from '../models/User'
@@ -85,4 +86,28 @@ export const postEditProfile = async (req, res) => {
   }
 }
 
-export const changePassword = (req, res) => res.render('changePassword', { pageTitle: 'changePassword' })
+export const getChangePassword = (req, res) => res.render('changePassword', { pageTitle: 'changePassword' })
+
+export const postChangePassword = async (req, res) => {
+  const { body: { cur_pw, new_pw1, new_pw2 } } = req
+
+  console.log(req.body)
+
+  // 비밀번호 확인이 맞야하고, 현재비번과 새로운 비번이 동일하면 안됨
+  if (new_pw1 !== new_pw2 || cur_pw === new_pw1) {
+    res.status(400)
+    res.redirect(`${routes.users}${routes.changePassword}`)
+    return
+  }
+  try {
+    await req.user.changePassword(cur_pw, new_pw1)
+    res.redirect(routes.me)
+    // cur_pw 와 기존 사용자 pw 의 일치여부는 changePassword 내부로직에서 알아서 해줌
+    // 일치 안할시 catch 문에서 잡아줌 ( [IncorrectPasswordError] )
+  }
+  catch (err) {
+    console.log(err)
+    res.status(400)
+    res.redirect(`${routes.users}${routes.changePassword}`)
+  }
+}
