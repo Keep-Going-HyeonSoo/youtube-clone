@@ -23,7 +23,7 @@ export const postJoin = async (req, res, next) => {
         name,
         email
       })
-      await User.register(user, password) // passport-local
+      await User.register(user, password) // passport-local-mongoose
       next()
     }
     catch (error) {

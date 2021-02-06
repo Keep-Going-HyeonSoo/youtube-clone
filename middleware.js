@@ -45,6 +45,7 @@ export const uploadAvatar = multerAvatar.single('avatar')
 
 // ************* localsMiddleware 미들웨어 ***************
 export const localsMiddleware = (req, res, next) => {
+  // view 템플릿에서는 res.locals 없이 siteName, routes .. 등으로 사용할수있음
   res.locals.siteName = 'HyeonTube'
   res.locals.routes = routes
   res.locals.loggedUser = req.user || null

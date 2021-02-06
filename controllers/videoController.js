@@ -39,22 +39,27 @@ export const postUpload = async (req, res) => {
     body: { title, description },
     file: { path } // req.file : multer 미들웨어에 의해 생성됨
   } = req
+  // create = new Model + save()
   const newVideo = await Video.create({
     fileUrl: path,
     title,
-    description
+    description,
+    creator: req.user.id
   })
-  console.log('req.body', req.body)
-  console.log('req.file', req.file)
-  console.log('newVideo', newVideo)
+  console.log('req.user before: ', req.user)
+  req.user.videos.push(newVideo.id)
+  await req.user.save()
+
+  console.log('req.user after: ', req.user)
+  console.log('newVideo: ', newVideo)
   res.redirect(`${routes.videos}${routes.videoDetail(newVideo.id)}`)
 }
 
 export const videoDetail = async (req, res) => {
   const { id } = req.params
   try {
-    const video = await Video.findById(id)
-    console.log('video', video)
+    const video = await Video.findById(id).populate('creator')
+    console.log('video: ', video)
     res.render('videoDetail', { pageTitle: video.title, video })
   }
   catch (error) {
