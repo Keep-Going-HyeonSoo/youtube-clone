@@ -58,7 +58,6 @@ export const userDetail = async (req, res) => {
   const { params: { id } } = req
   try {
     const user = await User.findById(id)
-    console.log('user', user)
     res.render('userDetail', { pageTitle: 'userDetail', user }) // getMe 와는 다르게 이 user 는 DB에서 찾은 user 임.
   }
   catch (error) {
@@ -90,8 +89,6 @@ export const getChangePassword = (req, res) => res.render('changePassword', { pa
 
 export const postChangePassword = async (req, res) => {
   const { body: { cur_pw, new_pw1, new_pw2 } } = req
-
-  console.log(req.body)
 
   // 비밀번호 확인이 맞야하고, 현재비번과 새로운 비번이 동일하면 안됨
   if (new_pw1 !== new_pw2 || cur_pw === new_pw1) {

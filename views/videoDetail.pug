@@ -9,7 +9,7 @@ block content
         button
           a(href=`${routes.videos}${routes.editVideo(video.id)}`) Edit video
       h5.video__title= video.title
-      h6.video__creator Uploaded by #{video.creator.name}
+      a(href=`${routes.users}${routes.userDetail(video.creator.id)}`).video__creator Uploaded by #{video.creator.name}
       if video.views === 1
         span.video__views 1 view
       else
