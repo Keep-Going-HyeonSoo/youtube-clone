@@ -31,13 +31,18 @@
       margin-bottom: 20px;
     }
 
+    .video__creator {
+      color: #3498db;
+      &:hover {
+        color: #ff7979;
+      }
+    }
   }
-  .video__comments{
+  .video__comments {
     margin-top: 80px;
-    .video__comments-number{
+    .video__comments-number {
       text-align: center;
       font-size: 18px;
     }
   }
-  
 }

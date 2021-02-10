@@ -1,3 +1,8 @@
+.user-profile__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .user-profile {
   display: flex;
   flex-direction: column;
@@ -6,7 +11,7 @@
   border: 2px solid #bbb2b2;
   border-radius: 20px;
   padding: 40px 40px 60px;
-  
+
   .user-profile__header {
     display: flex;
     flex-direction: column;
@@ -15,7 +20,7 @@
       text-align: center;
       font-size: 18px;
       font-weight: 600;
-      margin: 20px 0px
+      margin: 20px 0px;
     }
   }
 
@@ -26,7 +31,17 @@
     a:not(:last-child) {
       margin-bottom: 20px;
     }
-
   }
-  
+}
+
+.user-videos {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.user-videos__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2rem;
 }
