@@ -21,7 +21,7 @@ const VIDEOS = '/videos'
 const UPLOAD = '/upload'
 const VIDEO_DETAIL = '/:id' // /videos/123
 const EDIT_VIDEO = '/:id/edit' // /videos/123/edit
-const DELETE_VIDEO = '/:id/delete'
+const DELETE_VIDEO = '/:id/delete' // /videos/123/delete
 
 // Github Login
 

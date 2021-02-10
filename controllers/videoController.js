@@ -1,4 +1,5 @@
 import fs from 'fs' // file system 모듈
+import { Error } from 'mongoose'
 import routes from '../routes'
 import Video from '../models/Video'
 
@@ -50,6 +51,9 @@ export const postUpload = async (req, res) => {
   await req.user.save()
 
   res.redirect(`${routes.videos}${routes.videoDetail(newVideo.id)}`)
+
+  // to do
+  // video upload 시, 업로드 진행율 퍼센트로 표시시켜주기
 }
 
 export const videoDetail = async (req, res) => {
@@ -68,7 +72,17 @@ export const getEditVideo = async (req, res) => {
   const { params: { id } } = req
   try {
     const video = await Video.findById(id)
-    res.render('editVideo', { pageTitle: `Edit ${video.title}`, video })
+
+    // routing protection ( video 를 upload 한 사람만 edit 가능 )
+    if (req.user.id !== video.creator.toString()) {
+      // typeof req.user.id : String
+      // typeof video.creator : Object
+      // 서로 다른 타입이므로 != 를 써서 형 변환을 시키거나, toString() 을 써줘야함
+      throw Error() // catch 로 분기됨
+    }
+    else {
+      res.render('editVideo', { pageTitle: `Edit ${video.title}`, video })
+    }
   }
   catch (error) {
     res.redirect(routes.home)
@@ -81,28 +95,56 @@ export const postEditVideo = async (req, res) => {
     params: { id },
     body: { title, description }
   } = req
-  try {
-    await Video.findByIdAndUpdate(id, { title, description })
-    res.redirect(`${routes.videos}${routes.videoDetail(id)}`)
-  }
-  catch (error) {
-    res.render('editVideo', { pageTitle: 'editVideo' })
-  }
-}
-export const deleteVideo = async (req, res) => {
-  const { params: { id } } = req
+  console.log(1)
   try {
     const video = await Video.findById(id)
-    // 서버에서 video 삭제
-    fs.unlink(`${video.fileUrl}`, (err) => {
-      console.log(err)
-    })
-    // DB에서 video 삭제
-    await Video.findByIdAndDelete(id)
+
+    // routing protection ( video 를 upload 한 사람만 edit 가능 )
+    if (req.user.id !== video.creator.toString()) {
+      throw Error() // catch 로 분기됨
+    }
+    else {
+      video.title = title
+      video.description = description
+      await video.save()
+      res.redirect(`${routes.videos}${routes.videoDetail(id)}`)
+    }
+  }
+  catch (error) {
+    res.redirect(routes.home)
+  }
+}
+
+export const deleteVideo = async (req, res) => {
+  const { params: { id } } = req
+  console.log(id)
+  try {
+    const video = await Video.findById(id)
+
+    // routing protection ( video 를 upload 한 사람만 edit 가능 )
+    if (req.user.id !== video.creator.toString()) {
+      throw Error() // catch 로 분기됨
+    }
+    else {
+      // 서버에서 video 삭제
+      fs.unlink(`/workspace/youtube-clone/${video.fileUrl}`, (err) => {
+        console.log(err)
+      })
+      // DB의 video document 삭제
+      await Video.findByIdAndDelete(id)
+
+      // DB의 user document 에서 videos 배열에서 삭제
+      const idx = req.user.videos.indexOf(id)
+      if (idx > -1) {
+        req.user.videos.splice(idx, 1)
+        await req.user.save()
+      }
+    }
   }
   catch (error) {
     console.log(error)
   }
-
-  res.redirect(`${routes.home}`)
+  finally {
+    res.redirect(routes.home)
+  }
 }
