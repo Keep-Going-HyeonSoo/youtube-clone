@@ -1,8 +1,14 @@
 .videoBlock {
   width: 100%;
-  .videoBlock__thumbnail {
+  height: 100%;
+  .videoBlock__video {
     width: 100%;
     height: 75%;
+    margin-bottom: 0.5rem;
+  }
+  .videoBlock__thumbnail {
+    width: 100%;
+    height: 100%;
     background-color: black;
     margin-bottom: 8px;
   }
@@ -10,6 +16,5 @@
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 5px;
-
   }
 }
