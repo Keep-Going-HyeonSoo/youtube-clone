@@ -31,6 +31,15 @@
       span:first-child {
         margin-right: 0.8rem;
       }
+
+      span:last-child {
+        span:first-child {
+          margin-right: 0.2rem;
+        }
+        span:last-child {
+          margin-left: 0.2rem;
+        }
+      }
     }
 
     .videoPlayer__column:nth-child(2) {
