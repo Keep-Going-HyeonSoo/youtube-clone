@@ -13,7 +13,11 @@ mixin videoPlayer(video = {})
 			.videoPlayer__column
 				i.fab.fa-youtube
 					span &nbsp;HyeonTube
+				input.videoPlayer__volume#jsVolumeBar(type='range', min='0', max='100', step='1', value='50')
 				span#jsVolumeBtn
 					i.fas.fa-volume-up
 				span#jsFullScreen
 					i.fas.fa-expand
+		.videoPlayer__blink-icon
+			span#jsBlinkIcon
+				i.fas.fa-play-circle
