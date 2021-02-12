@@ -1,7 +1,8 @@
 .videoPlayer {
   position: relative;
   &:hover {
-    .videoPlayer__controls {
+    .videoPlayer__controls,
+    .videoPlayer__volumeBar-container {
       opacity: 1;
     }
   }
@@ -10,6 +11,25 @@
     height: 100%;
     max-width: 100%;
     min-width: 400px;
+  }
+
+  .videoPlayer__volumeBar-container {
+    position: absolute;
+    bottom: 2.6rem;
+    padding: 0;
+    width: 100%;
+    min-width: 400px;
+    z-index: 9;
+    opacity: 0;
+    transition: opacity 0.2s linear;
+
+    .videoPlayer__volumeBar {
+      padding: 0;
+      margin: 0;
+      position: relative;
+      width: 20%;
+      left: 79%;
+    }
   }
 
   .videoPlayer__controls {
@@ -56,7 +76,7 @@
         margin-right: 0.8rem;
       }
 
-      span:nth-child(2) {
+      .videoPlayer__btn--volume {
         margin-right: 0.8rem;
       }
     }
