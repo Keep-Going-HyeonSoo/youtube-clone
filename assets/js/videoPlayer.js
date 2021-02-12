@@ -3,6 +3,7 @@ const videoPlayer = document.getElementById('jsVideoPlayer')
 const video = document.querySelector('#jsVideoPlayer video')
 const playBtn = document.getElementById('jsPlayButton')
 const volumeBtn = document.getElementById('jsVolumeBtn')
+const volumeBar = document.getElementById('jsVolumeBar')
 const fullScrnBtn = document.getElementById('jsFullScreen')
 const currentTime = document.getElementById('currentTime')
 const totalTime = document.getElementById('totalTime')
@@ -24,12 +25,15 @@ function handlePlayClick() {
 }
 
 function handleVolumeClick() {
-  if (video.muted) {
+  if (video.muted) { // 음소거 해제
     video.muted = false
     volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>'
+    volumeBar.value = video.volume
   }
-  else {
+  else { // 음소거 실행
+    volumeBar.value = 0
     video.muted = true
+    // console.log(video.volume) // muted 를 시켜도 video.volume 값은 0 이 아님 ( 음소거 전 기존볼륨값이 그대로 살아있음 )
     volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'
   }
 }
@@ -118,10 +122,41 @@ function removeBlinkIcon() {
   }, 400)
 }
 
+function showVolumeBar() {
+  volumeBar.style.opacity = 1
+}
+
+function hideVolumeBar() {
+  volumeBar.style.opacity = 0
+}
+
+function handleDrag(event) {
+  const { target: { value } } = event // user 가 drag한 volume 값이 value
+  video.volume = value // video 의 volume 을 input 값을 변경
+  if (value >= 0.6) {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>'
+  }
+  else if (value >= 0.2) {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>'
+  }
+  else if (value > 0) {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>'
+  }
+  else {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'
+  }
+}
+
 const init = () => {
+  video.volume = 0.5
   playBtn.addEventListener('click', handlePlayClick)
   video.addEventListener('click', handlePlayClick)
   volumeBtn.addEventListener('click', handleVolumeClick)
+  volumeBtn.addEventListener('mouseover', showVolumeBar)
+  volumeBtn.addEventListener('mouseleave', hideVolumeBar)
+  volumeBar.addEventListener('mouseover', showVolumeBar)
+  volumeBar.addEventListener('mouseleave', hideVolumeBar)
+  volumeBar.addEventListener('input', handleDrag)
   fullScrnBtn.addEventListener('click', goFullScreen)
   video.addEventListener('loadedmetadata', setTotalTime) // 없어도 되는것 같은데 혹시 모르니까..
   video.addEventListener('timeupdate', getCurrentTime) // timeupdate event : Fired when the time indicated by the currentTime attribute has been updated.

@@ -2,7 +2,7 @@ mixin videoPlayer(video = {})
 	.videoPlayer#jsVideoPlayer
 		video(src=`/${video.src}`)
 		.videoPlayer__volumeBar-container
-			input.videoPlayer__volumeBar#jsVolumeBar(type='range', min='0', max='100', step='1', value='50')
+			input.videoPlayer__volumeBar#jsVolumeBar(type='range', min='0', max='1', step='0.01', value='0.5')
 		.videoPlayer__controls
 			.videoPlayer__column
 				span#jsPlayButton
