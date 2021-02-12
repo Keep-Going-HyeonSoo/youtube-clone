@@ -4,9 +4,18 @@ block content
   .form-container
     form(action=`${routes.videos}${routes.upload}`, method='post', enctype='multipart/form-data')
       label(for='file') 
-      h4.form-container-subheading
-        | Select Video File
-      input(type='file', id='file', name='videoFile', required='true', accept='video/*')
-      input(type='text', placeholder='Title', name='title', required='true')
-      textarea(name='description', placeholder='Description', required='true')
+        h4.form-container-subheading
+          | Select Video File
+        input(type='file', id='file', name='videoFile', required='true', accept='video/*')
+
+      label(for='title') 	
+        h4.form-container-subheading
+          | Title
+      input(type='text', id='title' placeholder='Title', name='title', required='true')
+
+      label(for='description') 	
+        h4.form-container-subheading
+          | Description
+      textarea(name='description',id='description',placeholder='Description', required='true')
+      
       input(type='submit', value='Upload Video')

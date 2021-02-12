@@ -20,18 +20,21 @@
       text-transform: uppercase;
     }
 
-    input:not([type='file']) {
+    input:not([type="file"]) {
       padding: 10px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       border-radius: 5px;
-      &:hover,&:focus, &:active {
-           box-shadow: 0 0 0 2px lightgrey;
-        }
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: 0 0 0 2px lightgrey;
+      }
       &:not(:last-child) {
         margin-bottom: 25px;
       }
 
-      &[type='submit'] {
+      &[type="submit"] {
+        margin-top: 20px;
         background-color: #3498db;
         color: white;
         font-size: 16px;
@@ -44,8 +47,15 @@
       }
     }
 
-    input[type='file']{
-      margin-bottom: 25px;
+    input[type="file"] {
+      // margin-bottom: 5px;
+    }
+
+    textarea {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      padding: 5px;
     }
   }
 }
