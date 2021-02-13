@@ -33,6 +33,11 @@ const GITHUB_LOGIN_CB = '/auth/github/callback'
 const FACEBOOK_LOGIN = '/auth/facebook'
 const FACEBOOK_LOGIN_CB = '/auth/facebook/callback'
 
+// API
+
+const API = '/api'
+const INC_VIEW_COUNT = '/:id/view' // video의 조회수 증가시키기
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -64,7 +69,9 @@ const routes = {
   githubLoginCB: GITHUB_LOGIN_CB,
   facebookLogin: FACEBOOK_LOGIN,
   facebookLoginCB: FACEBOOK_LOGIN_CB,
-  me: ME
+  me: ME,
+  api: API,
+  incViewCount: INC_VIEW_COUNT
 }
 
 export default routes

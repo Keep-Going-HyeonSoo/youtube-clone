@@ -148,3 +148,22 @@ export const deleteVideo = async (req, res) => {
     res.redirect(routes.home)
   }
 }
+
+// API
+
+export const postIncViewCount = async (req, res) => {
+  const { params: { id } } = req
+  try {
+    const video = await Video.findById(id)
+    video.views += 1
+    await video.save()
+    res.status(200)
+  }
+  catch (err) {
+    console.log(err)
+    res.status(400)
+  }
+  finally {
+    res.end()
+  }
+}

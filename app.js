@@ -15,6 +15,7 @@ import { localsMiddleware } from './middleware'
 import globalRouter from './routers/globalRouter'
 import videoRouter from './routers/videoRouter'
 import userRouter from './routers/userRouter'
+import apiRouter from './routers/apiRouter'
 
 const app = express()
 
@@ -55,5 +56,6 @@ app.use(localsMiddleware)
 app.use(routes.home, globalRouter) // '/'
 app.use(routes.users, userRouter) // '/users'
 app.use(routes.videos, videoRouter) // '/videos'
+app.use(routes.api, apiRouter)
 
 export default app
