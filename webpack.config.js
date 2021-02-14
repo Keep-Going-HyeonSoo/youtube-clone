@@ -15,6 +15,7 @@ const config = {
     path: OUTPUT_DIR,
     filename: '[name].js' // entry 파일의 파일명이 그대로 설정된다.
   },
+  resolve: { aliasFields: ['browser', 'browser.esm'] },
   target: ['es5'],
   module: {
     rules: [

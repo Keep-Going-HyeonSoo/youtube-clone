@@ -80,6 +80,7 @@ function setTotalTime() { // video 의 전체 러닝타임을 렌더링하는 �
 }
 
 function handleVideoEnded() {
+  incViewCount() // 조회수 증가
   playBtn.innerHTML = '<i class="fas fa-redo"></i>'
   playBtn.addEventListener('click', handleReplay)
 
@@ -145,6 +146,14 @@ function handleDrag(event) {
   else {
     volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'
   }
+}
+
+// API 호출 함수
+
+function incViewCount() {
+  const videoId = window.location.href.split('/videos/')[1]
+  fetch(`/api/${videoId}/view`, { method: 'POST' })
+  // fetch 는 비동기적으로 Promise 를 리턴하지만, 결과값을 이용한 로직이 필요한 것은 아니므로 await 을 할 필요는 없다.
 }
 
 const init = () => {

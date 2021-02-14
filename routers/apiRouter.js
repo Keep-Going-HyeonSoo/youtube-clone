@@ -2,8 +2,8 @@ import express from 'express'
 import { postIncViewCount } from '../controllers/videoController'
 import routes from '../routes'
 
-const apiRouter = express.Router() // '/videos'
+const apiRouter = express.Router() // '/api'
 
-apiRouter.get(routes.incViewCount, postIncViewCount)
+apiRouter.post(routes.incViewCount, postIncViewCount)
 
 export default apiRouter
