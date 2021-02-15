@@ -21,7 +21,7 @@ block content
       else
         p.video__comments-number #{video.comments.length} comments
       form.video__comments-form#jsAddComment
-        input(type='text', placeholder='댓글 작성')
+        input(type='text', name='comment', placeholder='댓글 작성')
       ul.video__comments-list
         each comment in video.comments
           span comment.text

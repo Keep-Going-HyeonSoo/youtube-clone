@@ -2,6 +2,7 @@ import fs from 'fs' // file system 모듈
 import { Error } from 'mongoose'
 import routes from '../routes'
 import Video from '../models/Video'
+import Comment from '../models/Comment'
 
 // 비동기 처리 : async/await
 export const home = async (req, res) => {
@@ -59,7 +60,7 @@ export const postUpload = async (req, res) => {
 export const videoDetail = async (req, res) => {
   const { id } = req.params
   try {
-    const video = await Video.findById(id).populate('creator')
+    const video = await Video.findById(id).populate('creator').populate('comments')
     res.render('videoDetail', { pageTitle: video.title, video })
   }
   catch (error) {
@@ -151,6 +152,7 @@ export const deleteVideo = async (req, res) => {
 
 // API
 
+// 조회수 증가
 export const postIncViewCount = async (req, res) => {
   const { params: { id } } = req
   try {
@@ -158,6 +160,29 @@ export const postIncViewCount = async (req, res) => {
     video.views += 1
     await video.save()
     res.status(200)
+  }
+  catch (err) {
+    console.log(err)
+    res.status(400)
+  }
+  finally {
+    res.end()
+  }
+}
+
+// video에 댓글생성
+export const postAddComment = async (req, res) => {
+  const { params: { id }, body: { comment }, user } = req // 여기서의 id는 video 의 id임
+
+  try {
+    const newComment = await Comment.create({
+      text: comment,
+      creator: user.id
+    })
+    const video = await Video.findById(id)
+    video.comments.push(newComment.id)
+    await video.save()
+    console.log(newComment, video)
   }
   catch (err) {
     console.log(err)

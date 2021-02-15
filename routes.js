@@ -37,6 +37,7 @@ const FACEBOOK_LOGIN_CB = '/auth/facebook/callback'
 
 const API = '/api'
 const INC_VIEW_COUNT = '/:id/view' // video의 조회수 증가시키기
+const ADD_COMMENT = '/:id/comment' // video 에 댓글 달기
 
 const routes = {
   home: HOME,
@@ -71,7 +72,8 @@ const routes = {
   facebookLoginCB: FACEBOOK_LOGIN_CB,
   me: ME,
   api: API,
-  incViewCount: INC_VIEW_COUNT
+  incViewCount: INC_VIEW_COUNT,
+  addComment: ADD_COMMENT
 }
 
 export default routes
