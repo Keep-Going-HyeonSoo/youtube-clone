@@ -1,5 +1,6 @@
 .videoPlayer {
   position: relative;
+  margin-bottom: 1rem;
   &:hover {
     .videoPlayer__controls {
       opacity: 1;
@@ -44,7 +45,7 @@
     min-width: 400px;
     bottom: 0.2rem;
     z-index: 9;
-    font-size: 1.4vw;
+    font-size: 1.2vw;
 
     opacity: 0;
     transition: opacity 0.2s linear;

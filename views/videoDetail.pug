@@ -11,11 +11,8 @@ block content
         button
           a(href=`${routes.videos}${routes.editVideo(video.id)}`) Edit video
       h5.video__title= video.title
+      span.video__views 조회수 #{video.views}회
       a(href=`${routes.users}${routes.userDetail(video.creator.id)}`).video__creator Uploaded by #{video.creator.name}
-      if video.views === 1
-        span.video__views 1 view
-      else
-        span.video__views #{video.views} views
       p.video__description= video.description
     .video__comments
       //- comment 1개일때의 단수처리를 위해 if문 처리
@@ -23,3 +20,8 @@ block content
         p.video__comments-number 1 comment 
       else
         p.video__comments-number #{video.comments.length} comments
+      form.video__comments-form#jsAddComment
+        input(type='text', placeholder='댓글 작성')
+      ul.video__comments-list
+        each comment in video.comments
+          span comment.text
