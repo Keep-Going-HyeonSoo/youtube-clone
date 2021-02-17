@@ -1,4 +1,5 @@
 import axios from 'axios'
+import moment from 'moment-timezone'
 
 const addCommentForm = document.getElementById('jsAddComment')
 const commentList = document.getElementById('jsCommentList')
@@ -28,7 +29,8 @@ const addComment = (comment, profile) => {
 
   const span3 = document.createElement('span')
   span3.classList.add('comments-date')
-  span3.innerHTML = `${new Date().toISOString().split('T')[0]} ${new Date().toISOString().split('T')[1].substring(0, 5)}`
+  const dateSeoul = moment(Date.now()).format()
+  span3.innerHTML = `${dateSeoul.split('T')[0]} ${dateSeoul.split('T')[1].substring(0, 5)}`
   li.appendChild(span3)
 
   commentList.insertBefore(li, commentList.firstChild)

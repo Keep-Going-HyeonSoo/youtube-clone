@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import moment from 'moment-timezone'
 
 const CommentSchema = new mongoose.Schema({
   text: {
@@ -7,7 +8,7 @@ const CommentSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: moment(Date.now()).add(9, 'hours')
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,

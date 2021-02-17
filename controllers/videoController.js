@@ -183,10 +183,17 @@ export const postAddComment = async (req, res) => {
       text: comment,
       creator: user.id
     })
+
+    // 해당 video document 에 저장
     const video = await Video.findById(id)
     video.comments.push(newComment.id)
     await video.save()
-    console.log(newComment, video)
+
+    // 해당 user document 에 저장
+    user.comments.push(newComment.id)
+    await user.save()
+
+    console.log(newComment, video, user)
   }
   catch (err) {
     console.log(err)

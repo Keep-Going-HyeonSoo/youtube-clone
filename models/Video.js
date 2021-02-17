@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import moment from 'moment-timezone'
 
 // Video 스키마 생성
 const VideoSchema = new mongoose.Schema({
@@ -17,7 +18,7 @@ const VideoSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: moment(Date.now()).add(9, 'hours')
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
