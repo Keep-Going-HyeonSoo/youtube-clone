@@ -38,7 +38,11 @@
     }
   }
   .video__comments {
-    margin-top: 80px;
+    margin-top: 40px;
+    .video-comments-number--container {
+      margin-bottom: 1rem;
+    }
+
     .video__comments-number {
       text-align: center;
       font-size: 18px;
@@ -51,6 +55,42 @@
 
       input {
         width: 100%;
+        margin-bottom: 2rem;
+      }
+    }
+
+    .video__comments-list {
+      li {
+        display: grid;
+        grid-template-rows: repeat(3, 25px);
+        grid-template-columns: 60px 1fr;
+        grid-template-areas:
+          "profile name"
+          "profile text"
+          "profile date";
+        align-items: start;
+
+        margin-bottom: 1.1rem;
+
+        .comments-profile {
+          grid-area: profile;
+          border-radius: 50%;
+          width: 3rem;
+        }
+
+        .comments-name {
+          grid-area: name;
+          font-weight: bold;
+        }
+
+        .comments-text {
+          grid-area: text;
+        }
+
+        .comments-date {
+          grid-area: date;
+          font-size: 0.9rem;
+        }
       }
     }
   }

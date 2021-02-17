@@ -16,12 +16,19 @@ block content
       p.video__description= video.description
     .video__comments
       //- comment 1개일때의 단수처리를 위해 if문 처리
-      if (video.comments.length === 1) 
-        p.video__comments-number 1 comment 
-      else
-        p.video__comments-number #{video.comments.length} comments
+      .video-comments-number--container
+        span 댓글
+        span.video__comments-number#jsCommentNumber #{video.comments.length}
+        span 개
       form.video__comments-form#jsAddComment
-        input(type='text', placeholder='댓글 작성')
-      ul.video__comments-list
-        each comment in video.comments
-          span comment.text
+        if loggedUser
+          input(type='text', placeholder='댓글 작성')
+        else
+          input(type='text', disabled, placeholder='로그인 후에 댓글을 작성할 수 있습니다.')
+      ul.video__comments-list#jsCommentList
+        each comment in video.comments.reverse()
+          li
+            img.comments-profile(src=comment.creator.avatarUrl)
+            span.comments-name=comment.creator.name
+            span.comments-text=comment.text
+            span.comments-date=comment.createdAt.toISOString().split('T')[0] +' '+ comment.createdAt.toISOString().split('T')[1].substring(0,5)

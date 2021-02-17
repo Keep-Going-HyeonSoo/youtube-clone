@@ -60,7 +60,11 @@ export const postUpload = async (req, res) => {
 export const videoDetail = async (req, res) => {
   const { id } = req.params
   try {
-    const video = await Video.findById(id).populate('creator').populate('comments')
+    const video = await Video.findById(id).populate('creator').populate({
+      path: 'comments',
+      populate: { path: 'creator' }
+    })
+    console.log(video)
     res.render('videoDetail', { pageTitle: video.title, video })
   }
   catch (error) {
@@ -189,6 +193,17 @@ export const postAddComment = async (req, res) => {
     res.status(400)
   }
   finally {
+    res.end()
+  }
+}
+
+export const getProfile = async (req, res) => {
+  if (req.user) {
+    res.status(200)
+    res.json(req.user)
+  }
+  else {
+    res.status(400)
     res.end()
   }
 }
