@@ -28,7 +28,11 @@ block content
       ul.video__comments-list#jsCommentList
         each comment in video.comments.reverse()
           li
+            input(type='hidden', value=comment.id)
             img.comments-profile(src=comment.creator.avatarUrl)
             span.comments-name=comment.creator.name
             span.comments-text=comment.text
             span.comments-date=comment.createdAt.toISOString().split('T')[0] +' '+ comment.createdAt.toISOString().split('T')[1].substring(0,5)
+            if loggedUser && (loggedUser.id === comment.creator.id )
+              span.comments-delete#jsCommentDeleteBtn
+                i.far.fa-trash-alt

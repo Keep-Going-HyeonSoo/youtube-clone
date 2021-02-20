@@ -61,13 +61,15 @@
 
     .video__comments-list {
       li {
+        min-width: 300px;
         display: grid;
+        column-gap: 16px;
         grid-template-rows: repeat(3, 25px);
-        grid-template-columns: 60px 1fr;
+        grid-template-columns: fit-content(60px) 1fr fit-content(80px);
         grid-template-areas:
-          "profile name"
-          "profile text"
-          "profile date";
+          "profile name delete"
+          "profile text text"
+          "profile date date";
         align-items: start;
 
         margin-bottom: 1.1rem;
@@ -90,6 +92,11 @@
         .comments-date {
           grid-area: date;
           font-size: 0.9rem;
+        }
+
+        .comments-delete {
+          grid-area: delete;
+          font-size: 1.2rem;
         }
       }
     }

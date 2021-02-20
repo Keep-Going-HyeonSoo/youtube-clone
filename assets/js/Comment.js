@@ -1,8 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import axios from 'axios'
 import moment from 'moment-timezone'
 
 const addCommentForm = document.getElementById('jsAddComment')
 const commentList = document.getElementById('jsCommentList')
+const commentDeleteBtn = document.querySelectorAll('#jsCommentDeleteBtn')
 
 const increaseNumber = () => {
   const number = document.getElementById('jsCommentNumber')
@@ -11,6 +13,11 @@ const increaseNumber = () => {
 
 const addComment = (comment, profile) => {
   const li = document.createElement('li')
+
+  const input = document.createElement('input')
+  input.type = 'hidden'
+  input.value = comment._id
+  li.appendChild(input)
 
   const img = document.createElement('img')
   img.classList.add('comments-profile')
@@ -24,7 +31,7 @@ const addComment = (comment, profile) => {
 
   const span2 = document.createElement('span')
   span2.classList.add('comments-text')
-  span2.innerHTML = comment
+  span2.innerHTML = comment.text
   li.appendChild(span2)
 
   const span3 = document.createElement('span')
@@ -32,6 +39,13 @@ const addComment = (comment, profile) => {
   const dateSeoul = moment(Date.now()).format()
   span3.innerHTML = `${dateSeoul.split('T')[0]} ${dateSeoul.split('T')[1].substring(0, 5)}`
   li.appendChild(span3)
+
+  const span4 = document.createElement('span')
+  span4.classList.add('comments-delete')
+  const i = document.createElement('i')
+  i.classList.add('far', 'fa-trash-alt')
+  span4.appendChild(i)
+  li.appendChild(span4)
 
   commentList.insertBefore(li, commentList.firstChild)
   increaseNumber()
@@ -45,11 +59,23 @@ const sendComment = async (comment) => {
   })
   const userPromise = axios.get('/api/profile')
   Promise.all([commentPromise, userPromise]).then((response) => {
-    console.log(response)
     if (response[0].status === 200 && response[1].status === 200) {
-      addComment(comment, response[1].data)
+      console.log(response[0], response[1])
+      addComment(response[0].data, response[1].data)
     }
   })
+
+  // <input type="hidden"> 사용
+
+  /* response[0].data
+  createdAt: "2021-02-18T12:53:52.121Z"
+  creator: "600aafe84e10292cccb96cd3"
+  text: "아아아"
+  __v: 0
+  _id: "602de4e161b0360952aa72b9"
+*/
+
+  // async/await 사용법
 
   // const response = await axios.post(`/api/${videoID}/comment`, {
   //   comment // comment : comment
@@ -66,8 +92,24 @@ const handleSubmit = (event) => {
   addCommentForm.querySelector('input').value = ''
 }
 
+// 삭제 api AJAX 요청
+const deleteComment = (comment) => {
+  const videoID = window.location.href.split('/videos/')[1]
+}
+
+const handleDelete = (event) => {
+  const selectedComment = event.target.parentNode.parentNode
+  console.log(selectedComment)
+  deleteComment(selectedComment)
+}
+
 function init() {
   addCommentForm.addEventListener('submit', handleSubmit)
+  commentDeleteBtn.forEach((element) => {
+    element.addEventListener('click', handleDelete)
+  })
+
+  // commentDeleteBtn.addEventListener('click', handleDelete)
 }
 
 if (addCommentForm) {

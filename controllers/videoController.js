@@ -175,10 +175,12 @@ export const postIncViewCount = async (req, res) => {
 }
 
 // video에 댓글생성
+// 3가지 DB 를 조작해야함 : comment document 추가, video document 와 user document 에 comment 정보추가
 export const postAddComment = async (req, res) => {
   const { params: { id }, body: { comment }, user } = req // 여기서의 id는 video 의 id임
 
   try {
+    // comment collection 에 document 추가
     const newComment = await Comment.create({
       text: comment,
       creator: user.id
@@ -193,11 +195,13 @@ export const postAddComment = async (req, res) => {
     user.comments.push(newComment.id)
     await user.save()
 
-    console.log(newComment, video, user)
+    // console.log(newComment, video, user)
+    res.json(newComment)
   }
   catch (err) {
     console.log(err)
     res.status(400)
+    res.end()
   }
   finally {
     res.end()
