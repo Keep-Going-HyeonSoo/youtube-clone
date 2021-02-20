@@ -4,7 +4,7 @@ import moment from 'moment-timezone'
 
 const addCommentForm = document.getElementById('jsAddComment')
 const commentList = document.getElementById('jsCommentList')
-const commentDeleteBtn = document.querySelectorAll('#jsCommentDeleteBtn')
+const commentDeleteBtn = document.querySelectorAll('.jsCommentDeleteBtn')
 
 const increaseNumber = () => {
   const number = document.getElementById('jsCommentNumber')
@@ -41,7 +41,8 @@ const addComment = (comment, profile) => {
   li.appendChild(span3)
 
   const span4 = document.createElement('span')
-  span4.classList.add('comments-delete')
+  span4.addEventListener('click', handleDelete)
+  span4.classList.add('comments-delete', 'jsCommentDeleteBtn')
   const i = document.createElement('i')
   i.classList.add('far', 'fa-trash-alt')
   span4.appendChild(i)
@@ -60,29 +61,10 @@ const sendComment = async (comment) => {
   const userPromise = axios.get('/api/profile')
   Promise.all([commentPromise, userPromise]).then((response) => {
     if (response[0].status === 200 && response[1].status === 200) {
-      console.log(response[0], response[1])
+      // console.log(response[0], response[1])
       addComment(response[0].data, response[1].data)
     }
   })
-
-  // <input type="hidden"> 사용
-
-  /* response[0].data
-  createdAt: "2021-02-18T12:53:52.121Z"
-  creator: "600aafe84e10292cccb96cd3"
-  text: "아아아"
-  __v: 0
-  _id: "602de4e161b0360952aa72b9"
-*/
-
-  // async/await 사용법
-
-  // const response = await axios.post(`/api/${videoID}/comment`, {
-  //   comment // comment : comment
-  // })
-  // if (response.status === 200) {
-  //   addComment(comment)
-  // }
 }
 
 const handleSubmit = (event) => {
@@ -95,15 +77,21 @@ const handleSubmit = (event) => {
 // 삭제 api AJAX 요청
 const deleteComment = async (comment) => {
   const videoID = window.location.href.split('/videos/')[1]
-  await axios.post(`/api/${videoID}/comment/delete`, {
-    cId: comment.value
+  const response = await axios.post(`/api/${videoID}/comment/delete`, {
+    cId: comment.querySelector('input').value
   })
+
+  if (response.status === 200) {
+    comment.remove()
+    const number = document.getElementById('jsCommentNumber')
+    number.innerHTML = parseInt(number.innerHTML, 10) - 1
+  }
 }
 
 const handleDelete = (event) => {
   const selectedComment = event.target.parentNode.parentNode
-  // console.log(selectedComment)
-  deleteComment(selectedComment.querySelector('input'))
+  console.log(selectedComment)
+  deleteComment(selectedComment)
 }
 
 function init() {

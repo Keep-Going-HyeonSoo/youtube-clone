@@ -65,7 +65,6 @@ export const videoDetail = async (req, res) => {
       path: 'comments',
       populate: { path: 'creator' }
     })
-    console.log(video)
     res.render('videoDetail', { pageTitle: video.title, video })
   }
   catch (error) {
