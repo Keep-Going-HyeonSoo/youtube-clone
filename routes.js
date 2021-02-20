@@ -39,7 +39,7 @@ const API = '/api'
 const INC_VIEW_COUNT = '/:id/view' // video의 조회수 증가시키기
 const ADD_COMMENT = '/:id/comment' // video 에 댓글 달기
 const GET_PROFILE = '/profile' // 현재 접속한 유저의 프로필 이미지
-const DELETE_COMMENT = '/:id/comment/delete' // video 에 달린 댓글 삭제
+const DELETE_COMMENT = '/:vId/comment/delete' // video 에 달린 댓글 삭제
 
 const routes = {
   home: HOME,

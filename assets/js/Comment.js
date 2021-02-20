@@ -93,14 +93,17 @@ const handleSubmit = (event) => {
 }
 
 // 삭제 api AJAX 요청
-const deleteComment = (comment) => {
+const deleteComment = async (comment) => {
   const videoID = window.location.href.split('/videos/')[1]
+  await axios.post(`/api/${videoID}/comment/delete`, {
+    cId: comment.value
+  })
 }
 
 const handleDelete = (event) => {
   const selectedComment = event.target.parentNode.parentNode
-  console.log(selectedComment)
-  deleteComment(selectedComment)
+  // console.log(selectedComment)
+  deleteComment(selectedComment.querySelector('input'))
 }
 
 function init() {

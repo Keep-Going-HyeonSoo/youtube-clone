@@ -3,6 +3,7 @@ import { Error } from 'mongoose'
 import routes from '../routes'
 import Video from '../models/Video'
 import Comment from '../models/Comment'
+import User from '../models/User'
 
 // 비동기 처리 : async/await
 export const home = async (req, res) => {
@@ -214,6 +215,45 @@ export const getProfile = async (req, res) => {
     res.json(req.user)
   }
   else {
+    res.status(400)
+    res.end()
+  }
+}
+
+// comment 를 삭제하는 API
+// '/:vId/comment/delete'
+export const postDeleteComment = async (req, res) => {
+  const { params: { vId }, body: { cId } } = req // vId : video id, cId : comment id
+
+  try {
+    const comment = await Comment.findById(cId)
+
+    if (req.user.id === comment.creator.toString()) {
+      // video document 에서 해당 comment 삭제
+      const video = await Video.findById(vId)
+      const videoIdx = video.comments.indexOf(cId)
+      if (videoIdx > -1) {
+        video.comments.splice(videoIdx, 1)
+        await video.save()
+      }
+
+      // user document 에서 해당 comment 삭제
+      const user = await User.findById(req.user.id)
+      const UserIdx = user.comments.indexOf(cId)
+      if (UserIdx > -1) {
+        user.comments.splice(UserIdx, 1)
+        await user.save()
+      }
+
+      // comment document 삭제
+      await Comment.findByIdAndDelete(cId)
+
+      res.status(200)
+      res.end()
+    }
+  }
+  catch (err) {
+    console.log(err)
     res.status(400)
     res.end()
   }
