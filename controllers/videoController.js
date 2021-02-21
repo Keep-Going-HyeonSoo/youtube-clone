@@ -4,6 +4,7 @@ import routes from '../routes'
 import Video from '../models/Video'
 import Comment from '../models/Comment'
 import User from '../models/User'
+import { s3 } from '../middleware'
 
 // 비동기 처리 : async/await
 export const home = async (req, res) => {
@@ -40,11 +41,11 @@ export const getUpload = (req, res) => res.render('upload', { pageTitle: 'upload
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path } // req.file : multer 미들웨어에 의해 생성됨
+    file: { location } // req.file : multer 미들웨어에 의해 생성됨
   } = req
   // create = new Model + save()
   const newVideo = await Video.create({
-    fileUrl: path,
+    fileUrl: location,
     title,
     description,
     creator: req.user.id
@@ -132,9 +133,13 @@ export const deleteVideo = async (req, res) => {
     }
     else {
       // 서버에서 video 삭제
-      fs.unlink(`/workspace/youtube-clone/${video.fileUrl}`, (err) => {
-        console.log(err)
+      s3.deleteObject({
+        Bucket: 'hyeon-tube/video',
+        Key: video.fileUrl.split('video/')[1]
+      }, (err) => {
+        if (err) console.log(err)
       })
+
       // DB의 video document 삭제
       await Video.findByIdAndDelete(id)
 

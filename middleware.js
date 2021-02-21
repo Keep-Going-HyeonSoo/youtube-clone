@@ -1,13 +1,23 @@
 import multer from 'multer'
+import multerS3 from 'multer-s3'
+import aws from 'aws-sdk'
 import path from 'path'
 import routes from './routes'
+
+export const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_ID,
+  secretAccessKey: process.env.AWS_SECRET,
+  region: process.env.REGION
+})
 
 // multer 로 실제 파일을 DB에 저장시킨 후, 도큐먼트에는 파일자체가 아닌
 // 파일 path 만을 저장시킬 것이다.
 
 // ************** video multer ******************
 
-const videoStorage = multer.diskStorage({
+/*
+// 로컬서버에 저장하는 multer storage 설정
+const videoLocalStorage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/videos/')
   },
@@ -17,8 +27,15 @@ const videoStorage = multer.diskStorage({
     // 파일이름이 중복될 수 있는 이슈(극히 드물긴함)가 있지만 일단은 타임스탬프로 파일명을 지정 ( ex: 1607850021872.mp4 )
   }
 })
+*/
 
-const multerVideo = multer({ storage: videoStorage })
+const videoS3Storage = multerS3({
+  s3,
+  acl: 'public-read',
+  bucket: 'hyeon-tube/video'
+})
+
+const multerVideo = multer({ storage: videoS3Storage })
 // multerVideo : multer 인스턴스
 
 // uploadVideo 미들웨어
@@ -29,7 +46,9 @@ export const uploadVideo = multerVideo.single('videoFile')
 
 // ************** Avatar multer ******************
 
-const avatarStorage = multer.diskStorage({
+/*
+// 로컬서버에 저장하는 multer storage 설정
+const avatarLocalStorage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/avatar/')
   },
@@ -39,8 +58,15 @@ const avatarStorage = multer.diskStorage({
     // 파일이름이 중복될 수 있는 이슈(극히 드물긴함)가 있지만 일단은 타임스탬프로 파일명을 지정 ( ex: 1607850021872.mp4 )
   }
 })
+*/
 
-const multerAvatar = multer({ storage: avatarStorage })
+const avatarS3Storage = multerS3({
+  s3,
+  acl: 'public-read',
+  bucket: 'hyeon-tube/avatar'
+})
+
+const multerAvatar = multer({ storage: avatarS3Storage })
 export const uploadAvatar = multerAvatar.single('avatar')
 
 // ************* localsMiddleware 미들웨어 ***************
