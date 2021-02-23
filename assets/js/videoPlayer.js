@@ -158,6 +158,7 @@ function incViewCount() {
 
 const init = () => {
   video.volume = 0.5
+  incViewCount() // 조회수 증가
   playBtn.addEventListener('click', handlePlayClick)
   video.addEventListener('click', handlePlayClick)
   volumeBtn.addEventListener('click', handleVolumeClick)

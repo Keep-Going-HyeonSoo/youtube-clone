@@ -2,6 +2,7 @@ import multer from 'multer'
 import multerS3 from 'multer-s3'
 import aws from 'aws-sdk'
 import path from 'path'
+import { random } from 'mathjs'
 import routes from './routes'
 
 export const s3 = new aws.S3({
@@ -32,7 +33,12 @@ const videoLocalStorage = multer.diskStorage({
 const videoS3Storage = multerS3({
   s3,
   acl: 'public-read',
-  bucket: 'hyeon-tube/video'
+  bucket: 'hyeon-tube/video',
+  key(req, file, cb) {
+    const extension = path.extname(file.originalname)
+    const temp = random(1, 10)
+    cb(null, temp.toString(36).slice(0, 1) + temp.toString(36).slice(2, 17) + extension)
+  }
 })
 
 const multerVideo = multer({ storage: videoS3Storage })
@@ -63,7 +69,12 @@ const avatarLocalStorage = multer.diskStorage({
 const avatarS3Storage = multerS3({
   s3,
   acl: 'public-read',
-  bucket: 'hyeon-tube/avatar'
+  bucket: 'hyeon-tube/avatar',
+  key(req, file, cb) {
+    const extension = path.extname(file.originalname)
+    const temp = random(1, 10)
+    cb(null, temp.toString(36).slice(0, 1) + temp.toString(36).slice(2, 17) + extension)
+  }
 })
 
 const multerAvatar = multer({ storage: avatarS3Storage })

@@ -80,7 +80,7 @@ export const postEditProfile = async (req, res) => {
     body: { name }, file
   } = req
 
-  const path = file ? file.path : req.user.avatarUrl
+  const path = file ? file.location : req.user.avatarUrl
 
   try {
     await User.findByIdAndUpdate(req.user.id, { name, avatarUrl: path })
