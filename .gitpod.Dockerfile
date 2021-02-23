@@ -36,4 +36,7 @@ RUN sudo apt-get install fonts-powerline
 RUN echo 'prompt_context() { }' >> ~/.zshrc
 RUN sed -i 's|robbyrussell|agnoster|g' ~/.zshrc
 
+# Install Heroku CLI
+RUN curl https://cli-assets.heroku.com/install.sh | sh
+
 
