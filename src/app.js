@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import mongoose from 'mongoose'
 import session from 'express-session'
+import path from 'path'
 import connectMongo from 'connect-mongo'
 import passport from 'passport'
 import './passport' // passport config 파일 ( LocalStrategy, serialize, deserialize )
@@ -26,9 +27,10 @@ app.use((req, res, next) => {
   res.setHeader('Content-Security-Policy', "script-src 'self' https://archive.org")
   return next()
 })
-app.use('/uploads', express.static('uploads')) // 첫 번째 인자는 파일 경로가 아닌 프론트 경로에서의 접두부
-app.use('/static', express.static('static'))
+app.use('/static', express.static(path.join(__dirname, 'static')))
 app.set('view engine', 'pug')
+app.set('views', path.join(__dirname, 'views'))
+
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

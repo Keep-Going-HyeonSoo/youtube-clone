@@ -1,3 +1,5 @@
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import './dotenv' // .env 환경변수 불러오는 파일 : 제일 위에 위치해야함
 import './db'
 import app from './app'
@@ -16,5 +18,7 @@ const handleListening = () => console.log(`💙 Listening on PORT ${PORT}`)
 // console.log('process.env: ', process.env)
 // console.log('__dirname', __dirname)
 // console.log('__filename', __filename)
+
+// console.log('process.cwd(): ', process.cwd())
 
 app.listen(PORT, handleListening)
