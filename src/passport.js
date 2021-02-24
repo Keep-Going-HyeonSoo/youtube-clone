@@ -12,8 +12,9 @@ passport.use(User.createStrategy())
 
 const GitHubStrategy = passportGithub2.Strategy
 
-const homeURL = process.env.PRODUCTION ? process.env.URL_HEROKU
-  : process.env.URL_GITPOD
+const homeURL = process.env.PRODUCTION ? process.env.URL_HEROKU : process.env.URL_GITPOD
+
+console.log('homeURL: ', homeURL)
 
 passport.use(
   new GitHubStrategy({
