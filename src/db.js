@@ -1,9 +1,8 @@
 import mongoose from 'mongoose'
 
 mongoose.connect(
-  process.env.PRODUCTION
-    ? process.env.MONGO_URL_PROD
-    : process.env.MONGO_URL_LOCAL,
+  // process.env.PRODUCTION ? process.env.MONGO_URL_PROD : process.env.MONGO_URL_LOCAL,
+  process.env.MONGO_URL_PROD,
   {
     useNewUrlParser: true,
     useFindAndModify: false,
