@@ -21,8 +21,8 @@ passport.use(
     clientID: process.env.GITHUB_ID,
     clientSecret: process.env.GITHUB_SECRET,
     callbackURL: process.env.PRODUCTION
-      ? 'https://young-citadel-80609.herokuapp.com/auth/github/callback'
-      : 'https://3000-gray-shark-j8q3nvfk.ws-us03.gitpod.io/auth/github/callback',
+      ? `${process.env.URL_PROD}/auth/github/callback`
+      : `${process.env.URL_GITPOD}/auth/github/callback`,
     scope: 'user:email' // // scope 지정 안해주면 email 이 private 일 경우 email 값 못 받아옴
   },
   githubStrategyCallback)
@@ -35,8 +35,8 @@ passport.use(
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: process.env.PRODUCTION
-      ? 'https://young-citadel-80609.herokuapp.com/auth/facebook/callback'
-      : 'https://3000-gray-shark-j8q3nvfk.ws-us03.gitpod.io/auth/facebook/callback',
+      ? `${process.env.URL_PROD}/auth/facebook/callback`
+      : `${process.env.URL_GITPOD}/auth/facebook/callback`,
     scope: ['public_profile', 'email'],
     profileFields: ['id', 'displayName', 'photos', 'email']
   },
