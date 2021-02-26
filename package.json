@@ -13,7 +13,8 @@
     "copyAll": "cp -r src/static dist && cp -r src/views dist",
     "prebuild": "rm -rf dist",
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
-    "start": "PRODUCTION=true node dist/init.js"
+    "start": "PRODUCTION=true node dist/init.js",
+    "start:pm2": "pm2 start dist/init.js"
   },
   "repository": {
     "type": "git",
