@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-console.log('MONGO PROD: ', process.env.MONGO_URL_PROD)
+// console.log('MONGO PROD: ', process.env.MONGO_URL_PROD)
 
 mongoose.connect(
   // process.env.PRODUCTION ? process.env.MONGO_URL_PROD : process.env.MONGO_URL_LOCAL,
