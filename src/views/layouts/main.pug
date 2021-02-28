@@ -8,6 +8,12 @@ html(lang="ko")
     link(rel='stylesheet', href='/static/main.css')
     
   body
+    if messages.error
+      span=messages.error
+    else if messages.info
+      span=messages.info
+    else if messages.success
+      span=messages.success
     //- header
     include ../partials/header
     

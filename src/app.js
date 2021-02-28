@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import mongoose from 'mongoose'
 import session from 'express-session'
+import flash from 'express-flash'
 import path from 'path'
 import connectMongo from 'connect-mongo'
 import passport from 'passport'
@@ -44,6 +45,8 @@ app.use(
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 )
+
+app.use(flash())
 
 // passport 미들웨어는 express sesson 미들웨어 아래에 위치
 app.use(passport.initialize())

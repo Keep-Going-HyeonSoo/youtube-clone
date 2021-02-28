@@ -5,7 +5,11 @@ import User from '../models/User'
 
 // github login
 
-export const githubLogin = passport.authenticate('github', { scope: ['user:email'] })
+export const githubLogin = passport.authenticate('github', {
+  scope: ['user:email'],
+  failureFlash: '아이디/비밀번호가 일치하지 않습니다.',
+  successFlash: '환영합니다!'
+})
 
 // 사용자가 app 의 github API 사용을 승인 후, github 에서 app 으로 넘어오는 사용자 데이터
 export const githubStrategyCallback = async (accessToken, refreshToken, profile, done) => {
@@ -66,7 +70,11 @@ export const githubLoginSuccess = (req, res) => {
 
 // facebook login
 
-export const facebookLogin = passport.authenticate('facebook', { scope: ['email'] })
+export const facebookLogin = passport.authenticate('facebook', {
+  scope: ['email'],
+  failureFlash: '아이디/비밀번호가 일치하지 않습니다.',
+  successFlash: '환영합니다!'
+})
 
 // 사용자가 app 의 facebook API 사용을 승인 후, facebook 에서 app 으로 넘어오는 사용자 데이터
 export const facebookStrategyCallback = async (accessToken, refreshToken, profile, done) => {
