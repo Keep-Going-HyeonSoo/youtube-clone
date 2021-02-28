@@ -5,20 +5,20 @@ block content
 		form(action=`${routes.users}${routes.editProfile}`, method='post', enctype='multipart/form-data') 
 			label(for='avatar') 
 				h4.form-container-subheading
-					| Select avatar
+					| 프로필 이미지 선택
 				input(type='file', id='avatar', name='avatar', accept='image/*')
 
 			label(for='name') 	
 				h4.form-container-subheading
-						| Name
+						| 이름
 				input(type='text', id='name', name='name', placeholder='Enter a name', value=loggedUser.name)
 			
 			label(for='email') 
 				h4.form-container-subheading
-						| Email
+						| 이메일
 				input(type='email', id='email', name='email', placeholder='Enter an email', value=loggedUser.email, readOnly)
 
-			input(type='submit', value='Update Profile')
+			input(type='submit', value='변경 확인')
 		
 		a.form-container__link(href=`${routes.users}${routes.changePassword}`)
-			button Change Password
+			button 비밀번호 변경

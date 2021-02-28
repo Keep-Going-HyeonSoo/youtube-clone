@@ -11,8 +11,7 @@
 @import "./pages/videoDetail.scss";
 @import "./pages/editVideo.scss";
 @import "./pages/userDetail.scss";
-
-// partials
+@import "./pages/search.scss"; // partials
 @import "./partials/header.scss";
 @import "./partials/footer.scss";
 @import "./partials/form.scss";
@@ -20,5 +19,6 @@
 @import "./partials/videoBlock.scss";
 @import "./partials/videoPlayer.scss";
 @import "./partials/message.scss";
+@import "./partials/modal.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");

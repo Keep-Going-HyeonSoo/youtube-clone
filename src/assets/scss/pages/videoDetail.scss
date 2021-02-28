@@ -78,6 +78,7 @@
           grid-area: profile;
           border-radius: 50%;
           width: 3rem;
+          height: 3rem;
         }
 
         .comments-name {
@@ -97,6 +98,7 @@
         .comments-delete {
           grid-area: delete;
           font-size: 1.2rem;
+          cursor: pointer;
         }
       }
     }

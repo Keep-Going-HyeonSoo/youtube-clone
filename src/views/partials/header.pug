@@ -2,8 +2,9 @@ header.header
   .header__wrapper
     .header__col
       a(href=routes.home)
-        i.fab.fa-youtube
-          span HyeonTube
+        img(src='https://hyeon-tube.s3.ap-northeast-2.amazonaws.com/assets/logo.png')
+        //- i.fab.fa-youtube
+        //-   span HyeonTube
     .header__col
       form(action=routes.search, method='get')
         input(type='text', placeholder='검색', name='term')
@@ -11,14 +12,14 @@ header.header
       if !loggedUser
         ul
           li
-            a(href=routes.join) Join
+            a(href=routes.join) 회원가입
           li
-            a(href=routes.login) Login
+            a(href=routes.login) 로그인
       else
         ul
           li
-            a(href=`${routes.videos}${routes.upload}`) Upload
+            a(href=`${routes.videos}${routes.upload}`) 업로드
           li
-            a(href=routes.me) Profile
+            a(href=routes.me) 내 정보
           li
-            a(href=routes.logout) Logout
+            a(href=routes.logout) 로그아웃

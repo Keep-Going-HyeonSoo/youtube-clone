@@ -3,13 +3,13 @@ extends layouts/main
 block content
   .form-container
     form(action=`${routes.videos}${routes.editVideo(video.id)}`, method='post')
-      .form-container-title edit video
-      h4.form-container-subheading title
+      .form-container-title 동영상 수정
+      h4.form-container-subheading 제목
       input(type='text', placeholder='Title', name='title', value=video.title)
-      h4.form-container-subheading description
+      h4.form-container-subheading 상세 설명
       textarea(name='description', placeholder='Description')=video.description
       input(type='submit', value='Update Video')
 
     a.form-container__link.form-container__link--delete(href=`${routes.videos}${routes.deleteVideo(video.id)}`)
       button
-        | Delete Video
+        | 동영상 삭제

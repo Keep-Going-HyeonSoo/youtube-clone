@@ -5,17 +5,28 @@ block content
     form(action=`${routes.videos}${routes.upload}`, method='post', enctype='multipart/form-data')
       label(for='file') 
         h4.form-container-subheading
-          | Select Video File
+          | 파일 선택
         input(type='file', id='file', name='videoFile', required='true', accept='video/*')
 
       label(for='title') 	
         h4.form-container-subheading
-          | Title
+          | 제목
       input(type='text', id='title' placeholder='Title', name='title', required='true')
 
       label(for='description') 	
         h4.form-container-subheading
-          | Description
+          | 상세 설명
       textarea(name='description',id='description',placeholder='Description', required='true')
       
-      input(type='submit', value='Upload Video')
+      input(type='submit', value='Upload Video')#jsSubmit
+
+    //- input(type='submit', value='TEST')#jsTest
+
+  .modal.hidden
+    .modal__overlay
+      .modal__content
+        h1 파일 업로드 중입니다
+        .modal__content--loading
+          div
+          div
+          div
