@@ -10,7 +10,7 @@ block content
       else
         .search__header
           span '#{searchingBy}' 의 검색결과
-        .videos__container
+        .videos__container.searchResult
           each item in videos
             +videoBlock({
               id: item.id,

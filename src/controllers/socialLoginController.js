@@ -6,9 +6,7 @@ import User from '../models/User'
 // github login
 
 export const githubLogin = passport.authenticate('github', {
-  scope: ['user:email'],
-  failureFlash: '아이디/비밀번호가 일치하지 않습니다.',
-  successFlash: '환영합니다!'
+  scope: ['user:email']
 })
 
 // 사용자가 app 의 github API 사용을 승인 후, github 에서 app 으로 넘어오는 사용자 데이터
@@ -62,7 +60,11 @@ export const githubStrategyCallback = async (accessToken, refreshToken, profile,
   }
 }
 
-export const githubLoginMiddleware = passport.authenticate('github', { failureRedirect: '/login' })
+export const githubLoginMiddleware = passport.authenticate('github', {
+  failureRedirect: '/login',
+  failureFlash: '아이디/비밀번호가 일치하지 않습니다.',
+  successFlash: '환영합니다!'
+})
 
 export const githubLoginSuccess = (req, res) => {
   res.redirect(routes.home)
@@ -71,9 +73,7 @@ export const githubLoginSuccess = (req, res) => {
 // facebook login
 
 export const facebookLogin = passport.authenticate('facebook', {
-  scope: ['email'],
-  failureFlash: '아이디/비밀번호가 일치하지 않습니다.',
-  successFlash: '환영합니다!'
+  scope: ['email']
 })
 
 // 사용자가 app 의 facebook API 사용을 승인 후, facebook 에서 app 으로 넘어오는 사용자 데이터
@@ -107,7 +107,11 @@ export const facebookStrategyCallback = async (accessToken, refreshToken, profil
   }
 }
 
-export const facebookLoginMiddleware = passport.authenticate('facebook', { failureRedirect: '/login' })
+export const facebookLoginMiddleware = passport.authenticate('facebook', {
+  failureRedirect: '/login',
+  failureFlash: '아이디/비밀번호가 일치하지 않습니다.',
+  successFlash: '환영합니다!'
+})
 
 export const facebookLoginSuccess = (req, res) => {
   res.redirect(routes.home)

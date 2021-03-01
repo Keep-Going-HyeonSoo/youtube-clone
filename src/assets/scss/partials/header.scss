@@ -106,6 +106,7 @@ button.hamburger {
     grid-area: menu;
     display: flex;
     flex-direction: column;
+    opacity: 1;
   }
 
   .header__col--hamburger {
