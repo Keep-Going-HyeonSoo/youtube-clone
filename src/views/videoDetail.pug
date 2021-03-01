@@ -9,7 +9,7 @@ block content
     .video__info
       if loggedUser && (video.creator.id === loggedUser.id)
         button
-          a(href=`${routes.videos}${routes.editVideo(video.id)}`) Edit video
+          a(href=`${routes.videos}${routes.editVideo(video.id)}`) 동영상 수정
       h5.video__title= video.title
       span.video__views 조회수 #{video.views}회
       a(href=`${routes.users}${routes.userDetail(video.creator.id)}`).video__creator Uploaded by #{video.creator.name}
