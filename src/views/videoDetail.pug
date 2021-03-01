@@ -29,8 +29,10 @@ block content
         each comment in video.comments.reverse()
           li
             input(type='hidden', value=comment.id)
-            img.comments-profile(src=comment.creator.avatarUrl)
-            span.comments-name=comment.creator.name
+            a(href=`/users/${comment.creator.id}`)  
+              img.comments-profile(src=comment.creator.avatarUrl)
+            a(href=`/users/${comment.creator.id}`)  
+              span.comments-name=comment.creator.name
             span.comments-text=comment.text
             span.comments-date=comment.createdAt.toISOString().split('T')[0] +' '+ comment.createdAt.toISOString().split('T')[1].substring(0,5)
             if loggedUser && (loggedUser.id === comment.creator.id )

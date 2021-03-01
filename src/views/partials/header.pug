@@ -1,20 +1,24 @@
 header.header
   .header__wrapper
-    .header__col
+    .header__col.header__col--logo
       a(href=routes.home)
         img(src='https://hyeon-tube.s3.ap-northeast-2.amazonaws.com/assets/logo.png')
         //- i.fab.fa-youtube
         //-   span HyeonTube
-    .header__col
+    .header__col.header__col--search
       form(action=routes.search, method='get')
         input(type='text', placeholder='검색', name='term')
-    .header__col
+    .header__col.header__col--hamburger#jsHamburger
+      button.hamburger
+        i.fas.fa-bars
+    .header__col.header__col--menu
       if !loggedUser
         ul
           li
-            a(href=routes.join) 회원가입
           li
             a(href=routes.login) 로그인
+          li
+            a(href=routes.join) 회원가입
       else
         ul
           li

@@ -61,7 +61,7 @@ const sendComment = async (comment) => {
   const userPromise = axios.get('/api/profile')
   Promise.all([commentPromise, userPromise]).then((response) => {
     if (response[0].status === 200 && response[1].status === 200) {
-      // console.log(response[0], response[1])
+      console.log(response[0], response[1])
       addComment(response[0].data, response[1].data)
     }
   })
